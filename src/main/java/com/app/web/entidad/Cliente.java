@@ -1,10 +1,13 @@
 package com.app.web.entidad;
 
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -23,6 +26,10 @@ public class Cliente {
 	
 	@Column(name = "email", nullable = false, length = 50, unique = true) // Configura la columna 'email'.
 	private String email;
+	
+	@OneToMany(mappedBy = "cliente")
+    private List<Vehiculo> vehiculos;
+
 	
 	// Constructores
 	public Cliente() {

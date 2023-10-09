@@ -28,10 +28,18 @@ document.addEventListener("DOMContentLoaded", function () {
             var confirmacion1 = confirm("¿Estás seguro de que deseas eliminar este vehículo? (Primera confirmación)");
 
             if (confirmacion1) {
-                var confirmacion2 = confirm("¡Esta acción no se puede deshacer! ¿Estás seguro? (Segunda confirmación)");
+                var contraseña = prompt("Por favor, ingresa tu contraseña para confirmar la eliminación:");
 
-                if (!confirmacion2) {
-                    event.preventDefault(); // Cancela la acción de eliminar si el usuario no confirma la segunda vez
+                // Verifica si la contraseña ingresada es correcta (cambia "tu_contraseña" por la contraseña real)
+                if (contraseña === "tu_contraseña") {
+                    var confirmacion2 = confirm("¡Esta acción no se puede deshacer! ¿Estás seguro? (Segunda confirmación)");
+
+                    if (!confirmacion2) {
+                        event.preventDefault(); // Cancela la acción de eliminar si el usuario no confirma la segunda vez
+                    }
+                } else {
+                    alert("Contraseña incorrecta. La eliminación no se ha confirmado.");
+                    event.preventDefault(); // Cancela la acción de eliminar si la contraseña es incorrecta
                 }
             } else {
                 event.preventDefault(); // Cancela la acción de eliminar si el usuario no confirma la primera vez

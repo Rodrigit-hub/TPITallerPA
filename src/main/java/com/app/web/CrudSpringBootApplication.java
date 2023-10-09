@@ -8,11 +8,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.app.web.entidad.Cliente;
 import com.app.web.entidad.Marca;
 import com.app.web.entidad.Modelo;
+import com.app.web.entidad.OrdenTrabajo;
+import com.app.web.entidad.Servicio;
 import com.app.web.entidad.Vehiculo;
 import com.app.web.entidad.tecnico;
 import com.app.web.repository.ClienteRepositorio;
 import com.app.web.repository.MarcaRepository;
 import com.app.web.repository.ModeloRepositorio;
+import com.app.web.repository.OrdenTrabajoRepositorio;
+import com.app.web.repository.ServicioRepositorio;
 import com.app.web.repository.VehiculoRepository;
 import com.app.web.repository.tecnicoRepositorio;
 
@@ -41,13 +45,26 @@ public class CrudSpringBootApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ModeloRepositorio repositorioModelo;
+
+	@Autowired
+	private ServicioRepositorio repositorioServicio;
+	
+	@Autowired
+	private OrdenTrabajoRepositorio repositorioOrdenTrabajo;
+	
 	
 	//este método es ejecutado al iniciar la aplicación.
     //carga de datos iniciales.
 	@Override
 	public void run(String... args) throws Exception {
+	/*
 		
-		/*
+		Servicio servicio1 = new Servicio("Cambio de aceite", "Cambia el aceite de un auto");
+		repositorioServicio.save(servicio1);
+		
+		Servicio servicio2 = new Servicio("Mecanica ligera", "Cambiar amortiguador");
+		repositorioServicio.save(servicio2);
+		
 		Vehiculo vehiculo1 = new Vehiculo("A03 NFB");
 		repositorio.save(vehiculo1);
 		
@@ -77,7 +94,7 @@ public class CrudSpringBootApplication implements CommandLineRunner{
 		
 		Modelo modelo3 = new Modelo("Fiesta", "2009");
 		repositorioModelo.save(modelo3);
-		*/
+*/
 	}
 }
 

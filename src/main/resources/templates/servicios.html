@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8">
-	<title>Listado de clientes</title>
 	<script src="/js/validaciones.js"></script>
-	<!-- CSS only -->
+	<meta charset="utf-8">
+	<title>Listado de servicios</title> <!-- Cambio el título -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
 <body>
+
 	<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Gestor Taller Mecanico</a>
@@ -29,18 +29,18 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/clientes">Clientes</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/modelos">Modelos</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/marcas">Marcas</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/tecnico">Tecnico</a>
-					</li>
+					 <li class="nav-item">
+                        <a class="nav-link" href="/servicios">Modelos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/marcas">Marcas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tecnico">Tecnico</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/servicios">Servicios</a>
-                    </li>					
+                    </li>
 					<li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
 					</li>
@@ -48,38 +48,38 @@
 			</div>
 		</div>
 	</nav>
+
 	<div class="container">
 		<div class="row">
-			<h1>Lista de Clientes</h1>
+			<h1>Lista de Servicios</h1> <!-- Cambio el título -->
 		</div>
+		<br>
 		<div class="row">
-			<div class="cold-lg-3">
-				<a th:href="@{/clientes/nuevo}" class="btn btn-primary btn-sm mb3">Agregar Cliente </a>
+			<div class="col-lg-3">
+				<a th:href="@{/servicios/nuevo}" class="btn btn-primary btn-sm mb3">Agregar Servicio</a> <!-- Cambio el botón -->
 			</div>
 		</div>
 		<br>
 		<table class="table table-dark table-hover">
 			<thead class="table-dark">
 				<tr>
-					<th>Id</th>
 					<th>Nombre</th>
-					<th>Apellido</th>
-					<th>Email</th>
+					<th>Descripción</th>
 					<th>Acciones</th>
-
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="Cliente : ${clientes}">
-					<td th:text="${Cliente.id}">Id</td>
-					<td th:text="${Cliente.nombre}">Nombre</td>
-					<td th:text="${Cliente.apellido}">Apellido</td>
-					<td th:text="${Cliente.email}">Email</td>
-					<td><a th:href="@{/clientes/editar/{id}(id=${Cliente.id})}" class="btn btn-info">Editar</a> <a
-							th:href="@{/clientes/{id}(id=${Cliente.id})}" class="btn btn-danger">Eliminar</a></td>
+				<tr th:each="servicio : ${servicios}"> <!-- Cambio la variable de modelo a servicio -->
+					<td th:text="${servicio.nombre}">Nombre</td>
+					<td th:text="${servicio.descripcion}">Descripción</td>
+					<td>
+						<a th:href="@{/servicios/editar/{id}(id=${servicio.id})}" class="btn btn-info">Editar</a> <!-- Cambio el enlace -->
+						<a th:href="@{/servicios/{id}(id=${servicio.id})}" class="btn btn-danger">Eliminar</a> <!-- Cambio el enlace -->
+					</td>
 				</tr>
 			</tbody>
 		</table>
+	</div>
 </body>
 
 </html>

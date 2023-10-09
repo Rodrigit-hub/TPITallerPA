@@ -1,10 +1,13 @@
 package com.app.web.entidad;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +23,9 @@ public class Modelo {
 	
 	@Column(name = "descripcion", nullable = false, length = 50)
 	private String descripcion;
+	
+    @OneToMany(mappedBy = "modelo")
+    private List<Vehiculo> vehiculos;
 
 	public Modelo() {
 		

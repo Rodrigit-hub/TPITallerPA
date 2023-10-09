@@ -38,6 +38,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/tecnico">Tecnico</a>
 					</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/servicios">Servicios</a>
+                    </li>					
 					<li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
 					</li>
@@ -72,9 +75,9 @@
 				<tr th:each="Vehiculo:${vehiculos}">
 					<td th:text="${Vehiculo.id}">1</td>
 					<td th:text="${Vehiculo.patente}">2</td>
-					<td>X</td>
-					<td>X</td>
-					<td>X</td>
+					<td th:text="${Vehiculo.marca}"></td>
+					<td th:text="${Vehiculo.modelo}"></td>
+					<td th:text="${Vehiculo.cliente}"></td>
 					<td>
 						<a th:href="@{/vehiculos/editar/{id}(id=${Vehiculo.id})}" class="btn btn-info">Editar</a>
 						<a th:href="@{/vehiculos/{id}(id=${Vehiculo.id})}" class="btn btn-danger">Eliminar</a>

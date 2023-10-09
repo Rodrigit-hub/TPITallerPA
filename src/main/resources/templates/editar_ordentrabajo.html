@@ -3,7 +3,9 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Editar Marcas</title>
+	<title>Editar Ordenes de Trabajo</title> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
+	<!-- Vincula el archivo JavaScript -->
+	<script src="/js/validaciones.js"></script>
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -23,7 +25,7 @@
 						<a class="nav-link active" aria-current="page" href="#">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/vehiculos">Vehiculos</a>
+						<a class="nav-link" href="/ordentrabajo">OrdenesTrabajo</a> <!-- Cambio Vehiculos por OrdenesTrabajo -->
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/clientes">Clientes</a>
@@ -38,9 +40,6 @@
 						<a class="nav-link" href="/tecnico">Tecnico</a>
 					</li>
 					<li class="nav-item">
-                        <a class="nav-link" href="/servicios">Servicios</a>
-                    </li>
-					<li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
 					</li>
 				</ul>
@@ -52,19 +51,43 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<h1 class="text-center">Edición de Marcas</h1>
+				<h1 class="text-center">Edicion de Ordenes de Trabajo</h1> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
 				<div class="card-body">
-					<form th:action="@{/marcas/{id}(id=${marca.id})}" th:object="${marca}" method="POST">
+					<form th:action="@{/ordentrabajo/{id}(id=${ordentrabajo.id})}" th:object="${ordentrabajo}" method="POST"> <!-- Cambio vehiculo por ordentrabajo -->
 						<div class="form-group">
-							<label>Nombre : </label>
-							<input type="text" name="nombre" th:field="*{nombre}" class="form-control"
-								placeholder="Escriba el nombre de la marca : " required pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+">
+							<label>Servicios:</label>
+							<select name="servicio.id" class="form-control" required>
+								<option th:each="servicio : ${servicios}" th:value="${servicio.id}"
+									th:text="${servicio.nombre}"></option>
+							</select>
+
+							<label>Cliente:</label>
+							<select name="cliente.id" class="form-control" required>
+								<option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+									th:text="${cliente.nombre}"></option>
+							</select>
 						</div>
+						<div class="form-group">
+							<label>Vehiculos:</label>
+							<select name="vehiculo.id" class="form-control" required>
+								<option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.id}"
+									th:text="${vehiculo.patente}"></option>
+							</select>
+						</div>
+							<div class="form-group">
+							    <label>Criterio de aceptacion:</label>
+							<input type="text" name="criterioAceptacion" th:field="*{criterioAceptacion}" class="form-control"
+								placeholder="Detalle informacion adicional relevante: ">
+
+
+						</div>						
 						<br>
 						<div class="box-footer">
 							<button class="btn btn-success">Guardar</button>
+
 						</div>
 					</form>
+
 				</div>
 				<br>
 			</div>

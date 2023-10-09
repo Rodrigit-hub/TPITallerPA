@@ -3,8 +3,9 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Editar Marcas</title>
-	<!-- CSS only -->
+	<title>Registro de clientes</title>
+	<!-- Vincula el archivo JavaScript -->
+	<script src="/js/validaciones.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -20,10 +21,10 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Home</a>
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/vehiculos">Vehiculos</a>
+						<a class="nav-link" href="/ordentrabajo">OrdenesTrabajo</a> <!-- Cambio Vehiculos por OrdenesTrabajo -->
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="/clientes">Clientes</a>
@@ -37,9 +38,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/tecnico">Tecnico</a>
 					</li>
-					<li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="/servicios">Servicios</a>
-                    </li>
+                    </li>					
 					<li class="nav-item">
 						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
 					</li>
@@ -48,27 +49,41 @@
 		</div>
 	</nav>
 
-	<br>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-				<h1 class="text-center">Edición de Marcas</h1>
-				<div class="card-body">
-					<form th:action="@{/marcas/{id}(id=${marca.id})}" th:object="${marca}" method="POST">
-						<div class="form-group">
-							<label>Nombre : </label>
-							<input type="text" name="nombre" th:field="*{nombre}" class="form-control"
-								placeholder="Escriba el nombre de la marca : " required pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]+">
-						</div>
-						<br>
-						<div class="box-footer">
-							<button class="btn btn-success">Guardar</button>
-						</div>
-					</form>
-				</div>
-				<br>
-			</div>
+			<h1>Lista de Ordenes de Trabajo</h1>
 		</div>
+		<div class="row">
+			<div>
+				<a th:href="@{/ordentrabajo/new}" class="btn btn-primary btn-sm mb3">Agregar Orden de Trabajo</a>
+			</div>
+
+		</div>
+		<br>
+		<table class="table table-dark table-hover">
+			<thead class="table-dark">
+				<tr>
+					<th>Id</th>
+					<th>Vehiculo</th>				
+					<th>Cliente</th>
+					<th>Criterio de Aceptación</th>						
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="OrdenTrabajo:${ordentrabajo}"> <!-- Cambio Vehiculo por OrdenTrabajo -->
+					<td th:text="${OrdenTrabajo.id}">1</td>
+					<td th:text="${OrdenTrabajo.vehiculo}">2</td>
+					<td th:text="${OrdenTrabajo.cliente}"></td>
+					<td th:text="${OrdenTrabajo.criterioAceptacion}"></td>				
+					<td>
+						<a th:href="@{/ordentrabajo/editar/{id}(id=${OrdenTrabajo.id})}" class="btn btn-info">Editar</a> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
+						<a th:href="@{/ordentrabajo/{id}(id=${OrdenTrabajo.id})}" class="btn btn-danger">Eliminar</a> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
 	</div>
 
 </body>

@@ -35,14 +35,28 @@ public class VehiculoControlador {
 		return "vehiculos"; // Nos retorna al archivo vehiculos
 	}
 	
+	@Autowired
 	private MarcaServiceImpl marcaService;
+	@Autowired
 	private ClienteServicioIMPL clienteService;
+	@Autowired
 	private ModeloServicioImpl modeloService;
 	
 	@GetMapping("/vehiculos/new")
 	public String mostrarFormularioRegistroVehiculo(Model modelo) {
 		Vehiculo vehiculo = new Vehiculo();
+		Marca marca = new Marca();
+		Cliente cliente = new Cliente();
+		Modelo modeloAuto = new Modelo();
+		
+        List<Cliente> clientes = clienteService.listarTodosLosClientes();
+        List<Marca> marcas = marcaService.listarTodasLasMarcas();
+        List<Modelo> modelos = modeloService.listarTodosLosModelos();
+		
 		modelo.addAttribute("vehiculo", vehiculo);
+        modelo.addAttribute("clientes", clientes);
+        modelo.addAttribute("marcas", marcas);
+        modelo.addAttribute("modelos", modelos);
 		return "crear_vehiculo";
 	}
 
