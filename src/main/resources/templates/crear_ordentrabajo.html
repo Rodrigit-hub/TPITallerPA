@@ -23,15 +23,27 @@
 					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="/ordentrabajo">OrdenesTrabajo</a>
 						<!-- Cambio Vehiculos por OrdenesTrabajo -->
-					</li>
-					<li class="nav-item"><a class="nav-link" href="/clientes">Clientes</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="/modelos">Modelos</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="/marcas">Marcas</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="/tecnico">Tecnico</a>
-					</li>
+               <li class="nav-item">
+                <a class="nav-link" href="/vehiculos">Vehiculos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clientes">Clientes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/modelos">Modelos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/marcas">Marcas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tecnico">Tecnicos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ordentrabajo">Orden De Trabajo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/servicios">Servicios</a>
+              </li>
 					<li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
 					</li>
 				</ul>
@@ -67,13 +79,14 @@
 									th:text="${vehiculo.patente}"></option>
 							</select>
 						</div>
-						<div class="form-group">
-							<label>Criterio de aceptacion:</label>
-							<input type="text" name="criterioAceptacion" th:field="*{criterioAceptacion}"
-								class="form-control" placeholder="Detalle informacion adicional relevante: ">
-
-
-						</div>
+						 <!-- Nueva parte para la fecha de creación -->
+						 
+					<div class="form-group">
+						<label>Fecha de Creación: </label>
+						<input type="date" name="fechaCreacion" th:field="*{fechaCreacion}" class="form-control"
+							placeholder="Ingrese la fecha de creacion:" required>
+					</div>
+	                <br>
 				</div>
 
 				<br>

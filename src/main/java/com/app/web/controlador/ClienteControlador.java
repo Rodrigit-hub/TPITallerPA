@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.web.entidad.Cliente;
+import com.app.web.entidad.OrdenTrabajo;
 import com.app.web.services.ClienteServicio;
 
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 
 @Controller
 public class ClienteControlador {
@@ -23,6 +29,20 @@ public class ClienteControlador {
 		// Llama al servicio para obtener todos los clientes
 		modelo.addAttribute("clientes",servicio.listarTodosLosClientes());
 		// Devuelve la vista "clientes" que mostrará la lista de clientes.
+		List<Cliente> clientes = servicio.listarTodosLosClientes();
+	    // Agregar la lógica para obtener la fecha de la última orden directamente en el controlador
+	    for (Cliente cliente : clientes) {
+	        if (cliente.getOrdenesDeTrabajo() != null && !cliente.getOrdenesDeTrabajo().isEmpty()) {
+	            // Ordenar las órdenes de trabajo por fecha de creación en orden descendente
+	            cliente.getOrdenesDeTrabajo().sort(Comparator.comparing(OrdenTrabajo::getFechaCreacion).reversed());
+
+	            // Obtener la fecha de la orden más reciente
+	            Date fechaUltimaOrden = cliente.getOrdenesDeTrabajo().get(0).getFechaCreacion();
+	            cliente.actualizarFechaCreacionOrden(fechaUltimaOrden);
+	        }
+	    }
+	    
+	    modelo.addAttribute("clientes", clientes);
 		return "clientes"; //nos retorna al archivo 
 		
 	}
@@ -69,6 +89,16 @@ public class ClienteControlador {
 		return "redirect:/clientes";
 		
 	}
+	
+	// Maneja solicitudes GET para buscar clientes por palabra clave.
+	@GetMapping("/clientes/buscar")
+	public String buscarClientesPorPalabraClave(@Param("palabraClave") String palabraClave, Model modelo) {
+		List<Cliente> listaClientes = servicio.listAll(palabraClave);
+	    modelo.addAttribute("clientes", listaClientes);
+	    modelo.addAttribute("palabraClave", palabraClave);
+	    return "clientes";
+	}
+	
 	// Maneja solicitudes GET para eliminar un cliente.
 	@GetMapping("/clientes/{id}")
 	public String eliminarCliente(@PathVariable Long id){

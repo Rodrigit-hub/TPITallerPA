@@ -39,4 +39,16 @@ public class ClienteServicioIMPL implements ClienteServicio{
 		repositorioCliente.deleteById(id);
 		
 	}
+	
+	@Override
+	public List<Cliente> listAll(String palabraClave) {
+	    // Implementación de búsqueda por palabra clave
+	    if (palabraClave == null || palabraClave.isEmpty()) {
+	        // Si la palabra clave es nula o vacía, devuelve todos los clientes
+	        return repositorioCliente.findAll();
+	    } else {
+	        // Si hay una palabra clave, realiza la búsqueda por palabra clave
+	        return repositorioCliente.findByClienteContainingIgnoreCase(palabraClave);
+	    }
+	}
 }

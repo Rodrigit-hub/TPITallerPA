@@ -64,7 +64,7 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         try {
             servicio.guardarOrdenTrabajo(ordentrabajo); // Cambio Vehiculo por OrdenTrabajo
         } catch (DataIntegrityViolationException e) {
-            throw new DuplicatePatenteException("La patente ya existe.");
+            throw new DuplicatePatenteException("La orden ya existe.");
         }
         return "redirect:/ordentrabajo"; // Cambio vehiculos por ordentrabajo
 
@@ -91,7 +91,6 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
             @ModelAttribute("ordentrabajo") OrdenTrabajo ordentrabajo, Model modelo) { // Cambio vehiculo por ordentrabajo
         OrdenTrabajo ordentrabajoExistente = servicio.obtenerOrdenTrabajoPorID(id); // Cambio Vehiculo por OrdenTrabajo
         ordentrabajoExistente.setId(id);
-        ordentrabajoExistente.setCriterioAceptacion(ordentrabajo.getCriterioAceptacion());
 
         servicio.actualizarOrdenTrabajo(ordentrabajoExistente); // Cambio Vehiculo por OrdenTrabajo
         return "redirect:/ordentrabajo"; // Cambio vehiculos por ordentrabajo

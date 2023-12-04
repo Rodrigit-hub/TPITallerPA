@@ -1,5 +1,9 @@
 package com.app.web.entidad;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,9 +21,9 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "criterioAceptacion", nullable = false, length = 50)
-    private String criterioAceptacion = "";
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "fecha_creacion")
+    private Date fechaCreacion;
 
 	@ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -36,17 +40,13 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     public OrdenTrabajo() {
 
     }
-    public OrdenTrabajo(String criterioAceptacion) {
-    super();
-    this.criterioAceptacion = criterioAceptacion;
-    } 
-    
-    public OrdenTrabajo(String criterioAceptacion, Cliente cliente, Vehiculo vehiculo, Servicio servicio) {
+
+    public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, Servicio servicio) {
 		super();
-		this.criterioAceptacion = criterioAceptacion;
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.servicio = servicio;
+		this.fechaCreacion = new Date(); // Establecer la fecha de creación al momento de la creación de la orden de trabajo
 	}
 
 
@@ -58,15 +58,6 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
         this.id = id;
     }
     
-    
-	public String getCriterioAceptacion() {
-		return criterioAceptacion;
-	}
-
-	public void setCriterioAceptacion(String criterioAceptacion) {
-		this.criterioAceptacion = criterioAceptacion;
-	}
-
     // Getters y Setters para las relaciones
 
     public Cliente getCliente() {
@@ -94,9 +85,17 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     }
     
 
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
 	@Override
 	public String toString() {
-		return "OrdenTrabajo [id=" + id + ", criterioAceptacion=" + criterioAceptacion + ", cliente=" + cliente
+		return "OrdenTrabajo [id=" + id + ", cliente=" + cliente
 				+ ", vehiculo=" + vehiculo + ", servicio=" + servicio + "]";
 	}
 }

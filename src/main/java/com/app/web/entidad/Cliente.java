@@ -1,6 +1,6 @@
 package com.app.web.entidad;
 
-
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -12,46 +12,72 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity // Indica que esta clase es una entidad JPA
-@Table(name="clientes")  // Especifica el nombre de la tabla en la base de datos.
+@Table(name = "clientes") // Especifica el nombre de la tabla en la base de datos.
 public class Cliente {
 	@Id // Indica que el campo 'id' es la clave primaria de la entidad
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Configura la generación automática de valores para 'id'.
 	private Long id;
-	
+
 	@Column(name = "nombre", nullable = false, length = 50) // Configura la columna 'nombre' en la tabla.
 	private String nombre;
-	
-	@Column(name = "apellido", nullable = false, length = 50)// Configura la columna 'apellido'.
+
+	@Column(name = "apellido", nullable = false, length = 50) // Configura la columna 'apellido'.
 	private String apellido;
-	
+
 	@Column(name = "email", nullable = false, length = 50, unique = true) // Configura la columna 'email'.
 	private String email;
-	
-	@OneToMany(mappedBy = "cliente")
-    private List<Vehiculo> vehiculos;
 
+	@Column(name = "telefono", nullable = false, length = 12) // Configura la columna 'telefono'.
+	private int telefono;
+
+	@Column(name = "direccion", nullable = false, length = 50) // Configura la columna 'direccion'.
+	private String direccion;
+
+	@Column(name = "informacion", nullable = false, length = 50) // Configura la columna 'informacion'.
+	private String informacion = "";
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Vehiculo> vehiculos;
 	
+    @OneToMany(mappedBy = "cliente")
+    private List<OrdenTrabajo> ordenesDeTrabajo;
+    
+    @Column
+    private Date fechaCreacionOrden;
+
+
+
 	// Constructores
 	public Cliente() {
-		 // Constructor por defecto necesario para JPA.
+		// Constructor por defecto necesario para JPA.
 	}
-	public Cliente( String nombre, String apellido, String email) {
+
+	public Cliente(String nombre, String apellido, String email, int telefono, String direccion, String informacion) {
 		// Constructor para crear un nuevo cliente sin ID.
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.informacion = informacion;
 	}
 
-	public Cliente(Long id, String nombre, String apellido, String email) {
-		 // Constructor para crear un cliente con ID (generalmente se utiliza cuando se recupera desde la base de datos).
+	public Cliente(Long id, String nombre, String apellido, String email, int telefono, String direccion,
+			String informacion) {
+		// Constructor para crear un cliente con ID (generalmente se utiliza cuando se
+		// recupera desde la base de datos).
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.informacion = informacion;
 	}
-	 // Métodos getters y setters para 'id', 'nombre', 'apellido' y 'email'.
+
+	// Métodos getters y setters para 'id', 'nombre', 'apellido' y 'email'.
 	public Long getId() {
 		return id;
 	}
@@ -84,14 +110,57 @@ public class Cliente {
 		this.email = email;
 	}
 
+	public int getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(int telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getInformacion() {
+		return informacion;
+	}
+
+	public void setInformacion(String informacion) {
+		this.informacion = informacion;
+	}
+
+	public List<Vehiculo> getVehiculos() {
+		return vehiculos;
+	}
+
+	public void setVehiculos(List<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + "]";
 	}
 	
-	
-	
+    public List<OrdenTrabajo> getOrdenesDeTrabajo() {
+        return ordenesDeTrabajo;
+    }
+
+    public void setOrdenesDeTrabajo(List<OrdenTrabajo> ordenesDeTrabajo) {
+        this.ordenesDeTrabajo = ordenesDeTrabajo;
+    }
+    
+    public Date getFechaCreacionOrden() {
+        return fechaCreacionOrden;
+    }
+
+    public void actualizarFechaCreacionOrden(Date fechaCreacionOrden) {
+        this.fechaCreacionOrden = fechaCreacionOrden;
+    }
+
 }
-
-
-

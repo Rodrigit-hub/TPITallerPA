@@ -57,8 +57,7 @@ public class CrudSpringBootApplication implements CommandLineRunner{
     //carga de datos iniciales.
 	@Override
 	public void run(String... args) throws Exception {
-	/*
-		
+	
 		Servicio servicio1 = new Servicio("Cambio de aceite", "Cambia el aceite de un auto");
 		repositorioServicio.save(servicio1);
 		
@@ -83,7 +82,7 @@ public class CrudSpringBootApplication implements CommandLineRunner{
 		tecnico tecnico2 = new tecnico("Pepe","Salamaleco",3585688 );	
 		repositorioTecnico.save(tecnico2);
 		
-		Cliente cliente = new Cliente("Celia","Mabel","celia69");
+		Cliente cliente = new Cliente("Celia","Mabel","celia69", 154250048, "Santa Fe 120", "DNI" );
 		repositorioCliente.save(cliente);
 		
 		Modelo modelo1 = new Modelo("Focus", "2001");
@@ -94,7 +93,7 @@ public class CrudSpringBootApplication implements CommandLineRunner{
 		
 		Modelo modelo3 = new Modelo("Fiesta", "2009");
 		repositorioModelo.save(modelo3);
-*/
+
 	}
 }
 
