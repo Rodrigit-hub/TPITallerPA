@@ -15,5 +15,11 @@ public interface OrdenTrabajoServicio {
     public OrdenTrabajo actualizarOrdenTrabajo(OrdenTrabajo ordenTrabajo); // Cambio Vehiculo por OrdenTrabajo
 
     public void eliminarOrdenTrabajo(Long id); // Cambio Vehiculo por OrdenTrabajo
+    
+    public List<OrdenTrabajo> listarTodasLasOrdenesNoEliminadas();
 
+    public List<OrdenTrabajo> listarTodasLasOrdenesEliminadas();
+    
+    public void restaurarOrdenTrabajo(Long id);
+    
 }

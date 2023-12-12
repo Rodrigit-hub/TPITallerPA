@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 var contraseña = prompt("Por favor, ingresa tu contraseña para confirmar la eliminación:");
 
                 // Verifica si la contraseña ingresada es correcta (cambia "tu_contraseña" por la contraseña real)
-                if (contraseña === "tu_contraseña") {
+                if (contraseña === "1") {
                     var confirmacion2 = confirm("¡Esta acción no se puede deshacer! ¿Estás seguro? (Segunda confirmación)");
 
                     if (!confirmacion2) {

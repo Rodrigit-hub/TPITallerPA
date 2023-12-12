@@ -24,6 +24,9 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
+    
+    @Column(name = "eliminado")
+    private boolean eliminado;
 
 	@ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -91,6 +94,15 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
 
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+    
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
 
 	@Override
