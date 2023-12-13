@@ -3,6 +3,8 @@ package com.app.web.entidad;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -28,7 +30,7 @@ public class Cliente {
 	private String email;
 
 	@Column(name = "telefono", nullable = false, length = 12) // Configura la columna 'telefono'.
-	private int telefono;
+	private String telefono;
 
 	@Column(name = "direccion", nullable = false, length = 50) // Configura la columna 'direccion'.
 	private String direccion;
@@ -42,9 +44,9 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<OrdenTrabajo> ordenesDeTrabajo;
     
-    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "fecha_creacion_orden")
     private Date fechaCreacionOrden;
-
 
 
 	// Constructores
@@ -52,7 +54,7 @@ public class Cliente {
 		// Constructor por defecto necesario para JPA.
 	}
 
-	public Cliente(String nombre, String apellido, String email, int telefono, String direccion, String informacion) {
+	public Cliente(String nombre, String apellido, String email, String telefono, String direccion, String informacion) {
 		// Constructor para crear un nuevo cliente sin ID.
 		super();
 		this.nombre = nombre;
@@ -63,7 +65,7 @@ public class Cliente {
 		this.informacion = informacion;
 	}
 
-	public Cliente(Long id, String nombre, String apellido, String email, int telefono, String direccion,
+	public Cliente(Long id, String nombre, String apellido, String email, String telefono, String direccion,
 			String informacion) {
 		// Constructor para crear un cliente con ID (generalmente se utiliza cuando se
 		// recupera desde la base de datos).
@@ -110,11 +112,11 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -160,7 +162,8 @@ public class Cliente {
     }
 
     public void actualizarFechaCreacionOrden(Date fechaCreacionOrden) {
-        this.fechaCreacionOrden = fechaCreacionOrden;
+	    if (fechaCreacionOrden != null && (this.fechaCreacionOrden == null || fechaCreacionOrden.after(this.fechaCreacionOrden))) {
+	        this.fechaCreacionOrden = fechaCreacionOrden;
+	    }
     }
-
 }

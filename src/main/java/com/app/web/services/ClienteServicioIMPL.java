@@ -1,5 +1,6 @@
 package com.app.web.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +42,16 @@ public class ClienteServicioIMPL implements ClienteServicio{
 	}
 	
 	@Override
+	public List<Cliente> findByClienteContainingIgnoreCase(
+	        String nombre, String id, String apellido, String email, String telefono, 
+	        String direccion, String informacion, Date fechaCreacionOrden) {
+	    return repositorioCliente.findByClienteContainingIgnoreCase(
+	        nombre, id, apellido, email, telefono, direccion, informacion, fechaCreacionOrden);
+	}
+	@Override
+	
 	public List<Cliente> listAll(String palabraClave) {
-	    // Implementación de búsqueda por palabra clave
-	    if (palabraClave == null || palabraClave.isEmpty()) {
-	        // Si la palabra clave es nula o vacía, devuelve todos los clientes
-	        return repositorioCliente.findAll();
-	    } else {
-	        // Si hay una palabra clave, realiza la búsqueda por palabra clave
-	        return repositorioCliente.findByClienteContainingIgnoreCase(palabraClave);
-	    }
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.web.entidad.Cliente;
 import com.app.web.entidad.OrdenTrabajo;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Controller
 public class ClienteControlador {
@@ -90,14 +92,42 @@ public class ClienteControlador {
 		
 	}
 	
-	// Maneja solicitudes GET para buscar clientes por palabra clave.
-	@GetMapping("/clientes/buscar")
-	public String buscarClientesPorPalabraClave(@Param("palabraClave") String palabraClave, Model modelo) {
-		List<Cliente> listaClientes = servicio.listAll(palabraClave);
-	    modelo.addAttribute("clientes", listaClientes);
-	    modelo.addAttribute("palabraClave", palabraClave);
-	    return "clientes";
-	}
+    @GetMapping("/clientes/buscar")
+    public String buscarClientesPorFiltros(
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "id", required = false) String id,
+            @RequestParam(name = "apellido", required = false) String apellido,
+            @RequestParam(name = "email", required = false) String email,
+            @RequestParam(name = "telefono", required = false) String telefono,
+            @RequestParam(name = "direccion", required = false) String direccion,
+            @RequestParam(name = "informacion", required = false) String informacion,
+            @RequestParam(name = "fechaCreacionOrden", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCreacionOrden,
+            Model modelo) {
+
+        System.out.println("Fecha recibida en el controlador (OrdenTrabajo): " + fechaCreacionOrden);
+
+        List<Cliente> listaClientes = servicio.findByClienteContainingIgnoreCase(
+                nombre, id, apellido, email, telefono, direccion, informacion, fechaCreacionOrden);
+
+        modelo.addAttribute("clientes", listaClientes);
+        modelo.addAttribute("nombre", nombre);
+        modelo.addAttribute("id", id);
+        modelo.addAttribute("apellido", apellido);
+        modelo.addAttribute("email", email);
+        modelo.addAttribute("telefono", telefono);
+        modelo.addAttribute("direccion", direccion);
+        modelo.addAttribute("informacion", informacion);
+        modelo.addAttribute("fechaCreacionOrden", fechaCreacionOrden);
+
+        return "clientes";
+    }
+    
+    @GetMapping("/clientes/limpiarFiltros")
+    public String limpiarFiltros(Model modelo) {
+        // Redirect to the main clients page without filtering
+        return "redirect:/clientes";
+    }
+
 	
 	// Maneja solicitudes GET para eliminar un cliente.
 	@GetMapping("/clientes/{id}")
