@@ -1,15 +1,22 @@
 package com.app.web.entidad;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -39,12 +46,32 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     @ManyToOne
     @JoinColumn(name = "servicio_id")
     Servicio servicio;
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "orden_trabajo_servicio",
+        joinColumns = @JoinColumn(name = "ordentrabajo_id"),
+        inverseJoinColumns = @JoinColumn(name = "servicio_id")
+    )
+    private Set<Servicio> servicios = new HashSet<>();
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private EstadosOrden estado;
 
     public OrdenTrabajo() {
 
     }
 
-    public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, Servicio servicio) {
+    public Set<Servicio> getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(Set<Servicio> servicios) {
+		this.servicios = servicios;
+	}
+
+	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, Servicio servicio) {
 		super();
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
@@ -103,6 +130,14 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
 
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
+    }
+    
+    public EstadosOrden getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadosOrden estado) {
+        this.estado = estado;
     }
 
 	@Override

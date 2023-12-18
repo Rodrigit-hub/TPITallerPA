@@ -1,13 +1,15 @@
 package com.app.web.controlador;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.web.entidad.Servicio;
 import com.app.web.services.ServicioServicio;
@@ -50,6 +52,7 @@ public class ServicioControlador {
 		servicioExistente.setId(id);
 		servicioExistente.setNombre(servicio.getNombre());
 		servicioExistente.setDescripcion(servicio.getDescripcion());
+		servicioExistente.setPrecio(servicio.getPrecio()); 
 		
 		servicioMecanico.actualizarServicio(servicioExistente);
 		return "redirect:/servicios";
@@ -60,4 +63,10 @@ public class ServicioControlador {
 		servicioMecanico.eliminarServicio(id);
 		return "redirect:/servicios";
 	}
+	
+	@PostMapping("/servicios/{id}/actualizar-precio")
+    public String actualizarPrecio(@PathVariable Long id, @RequestParam BigDecimal nuevoPrecio) {
+        servicioMecanico.actualizarPrecio(id, nuevoPrecio);
+        return "redirect:/servicios";
+    }
 }

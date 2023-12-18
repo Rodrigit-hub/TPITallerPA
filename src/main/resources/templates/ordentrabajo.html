@@ -77,7 +77,17 @@
 					Papelera
 				</a>
 			</div>
-			
+			<form th:action="@{/ordentrabajo/filtrar}" method="get" class="mb-3">
+                <!-- Filtro de fecha -->
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" class="form-control">
+                </div>
+
+                <!-- Botón para realizar la búsqueda -->
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <a th:href="@{/ordentrabajo}" class="btn btn-secondary">Limpiar Filtros</a>
+            </form>
 
 		</div>
 		<br>
@@ -88,18 +98,27 @@
 					<th>Servicios</th>
 					<th>Vehiculo</th>				
 					<th>Cliente</th>
-					<th>Fecha de Creación</th>						
+					<th>Fecha de Creación</th>
+					<th>Estado</th>						
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="OrdenTrabajo:${ordentrabajo}"> <!-- Cambio Vehiculo por OrdenTrabajo -->
 					<td th:text="${OrdenTrabajo.id}"></td>
-					<td th:text="${OrdenTrabajo.servicio.nombre}"></td>
+					<td>
+						<ul>
+							<li th:each="servicio: ${OrdenTrabajo.servicio}" th:text="${servicio.nombre}"></li>
+						</ul>
+					</td>
 					<td th:text="${OrdenTrabajo.vehiculo.patente}">2</td>
 					<td th:text="${OrdenTrabajo.cliente.nombre + ' ' + OrdenTrabajo.cliente.apellido}"></td>
-					<td th:text="${OrdenTrabajo.fechaCreacion}"></td>				
+					<td th:text="${#dates.format(OrdenTrabajo.fechaCreacion, 'yyyy-MM-dd')}"></td>
+					
+					<td th:text="${OrdenTrabajo.estado}"></td>					
 					<td>
+						<!-- Agrega un botón para redirigir a la página del formulario -->
+               			<a th:href="@{/ordentrabajo/factura/{id}(id=${OrdenTrabajo.id})}" class="btn btn-warning">Generar Factura</a>
 						<a th:href="@{/ordentrabajo/editar/{id}(id=${OrdenTrabajo.id})}" class="btn btn-info">Editar</a> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
 						<a th:href="@{/ordentrabajo/{id}(id=${OrdenTrabajo.id})}" class="btn btn-danger">Eliminar</a> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
 					</td>

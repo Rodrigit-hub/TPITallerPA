@@ -1,24 +1,27 @@
 package com.app.web.controlador;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.web.entidad.Cliente;
 import com.app.web.entidad.OrdenTrabajo; // Cambio Vehiculo por OrdenTrabajo
 import com.app.web.entidad.Servicio;
 import com.app.web.entidad.Vehiculo;
-import com.app.web.services.OrdenTrabajoServicio; // Cambio Vehiculo por OrdenTrabajo
-import com.app.web.services.VehiculoServiceImpl;
 import com.app.web.services.ClienteServicioIMPL;
+import com.app.web.services.OrdenTrabajoServicio; // Cambio Vehiculo por OrdenTrabajo
 import com.app.web.services.ServicioServicioImpl;
+import com.app.web.services.VehiculoServiceImpl;
 
 
 @Controller
@@ -100,6 +103,7 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
             @ModelAttribute("ordentrabajo") OrdenTrabajo ordentrabajo, Model modelo) { 
         OrdenTrabajo ordentrabajoExistente = servicio.obtenerOrdenTrabajoPorID(id); 
         ordentrabajoExistente.setId(id);
+        ordentrabajoExistente.setEstado(ordentrabajo.getEstado()); // Asegúrate de que el estado se establece correctamente
 
         servicio.actualizarOrdenTrabajo(ordentrabajoExistente); 
         return "redirect:/ordentrabajo"; 
@@ -124,4 +128,17 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         servicio.restaurarOrdenTrabajo(id);
         return "redirect:/ordentrabajo";
     }
+    
+    @GetMapping("/ordentrabajo/filtrar")
+    public String filtrarOrdenesTrabajo(
+            @RequestParam(name = "fecha", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha,
+            Model modelo
+    ) {
+        List<OrdenTrabajo> ordenesFiltradas = servicio.filtrarOrdenesPorFecha(fecha);
+        modelo.addAttribute("ordentrabajo", ordenesFiltradas);
+        return "ordentrabajo";
+    }
+
+    
+
 }

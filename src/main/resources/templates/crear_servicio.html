@@ -66,9 +66,18 @@
                             placeholder="Ingrese una descripción:" required>
                     </div>
                     <br>
-                    <div class="box-footer">
-                        <button class="btn btn-success">Guardar</button>
-                    </div>
+
+					<div class="form-group">
+						<label>Precio:</label>
+						<input type="number" name="precio" th:field="*{precio}" class="form-control" placeholder="Ingrese el precio:"
+							required>
+						<small th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" class="text-danger"></small>
+					</div>
+					<br>
+					<div class="box-footer">
+						<button class="btn btn-success">Guardar</button>
+					</div>
+					<br>
                 </form>
                 <div class="card-body">
                 </div>

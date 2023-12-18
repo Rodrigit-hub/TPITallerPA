@@ -1,5 +1,6 @@
 package com.app.web.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,25 @@ public class ServicioServicioImpl implements ServicioServicio { // Cambio el nom
     @Override
     public void eliminarServicio(Long id) { // Cambio el nombre del método
         repositorio.deleteById(id);
+    }
+    @Override
+    public Servicio agregarPrecio(Long id, BigDecimal precio) {
+        Servicio servicio = obtenerServicioPorId(id);
+        if (servicio != null) {
+            servicio.setPrecio(precio);
+            return repositorio.save(servicio);
+        }
+        return null; // O manejar de otra manera si el servicio no existe
+    }
+
+
+    @Override
+    public Servicio actualizarPrecio(Long id, BigDecimal nuevoPrecio) {
+        Servicio servicio = obtenerServicioPorId(id);
+        if (servicio != null) {
+            servicio.setPrecio(nuevoPrecio);
+            return repositorio.save(servicio);
+        }
+        return null; // O manejar de otra manera si el servicio no existe
     }
 }

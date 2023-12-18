@@ -79,7 +79,17 @@
 									th:text="${vehiculo.patente}"></option>
 							</select>
 						</div>
+						<div>
+							<label>Servicios:</label>
+							<select multiple="multiple" th:field="*{servicios}">
+								<!-- Mostrar lista de servicios disponibles -->
+								<option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:text="${servicio.nombre}">
+								</option>
+							</select>
+						</div>
+					
 						 <!-- Nueva parte para la fecha de creación -->
+						 
 						 
 					<div class="form-group">
 						<label>Fecha de Creación: </label>
@@ -87,13 +97,25 @@
 							placeholder="Ingrese la fecha de creacion:" required>
 					</div>
 	                <br>
-				</div>
-
+					<div class="form-group">
+						<label>Estado:</label>
+						<select name="estado" class="form-control" required>
+							<option value="NUEVA">Nueva</option>
+							<option value="EN_PROGRESO">En Progreso</option>
+							<option value="COMPLETADA">Completada</option>
+							<option value="CANCELADA">Cancelada</optio>
+						</select>
+					</div>
 				<br>
 				<div class="box-footer">
 					<button class="btn btn-success">Guardar</button>
 
 				</div>
+				<br>
+				</div>
+
+
+				
 				</form>
 
 			</div>

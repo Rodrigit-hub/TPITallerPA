@@ -1,14 +1,16 @@
 package com.app.web.entidad;
 
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,9 +27,19 @@ public class Servicio { // Cambio el nombre de la clase a "Servicio"
     
     @Column(name = "descripcion", nullable = false, length = 50)
     private String descripcion;
+    
+    
 
+	@Column(name = "precio", nullable = false, length = 50)
+    private BigDecimal precio;
+
+    /*
     @OneToMany(mappedBy = "servicio")
     private List<OrdenTrabajo> ordentrabajo;
+    */
+    
+    @ManyToMany(mappedBy = "servicios")
+    private Set<OrdenTrabajo> ordenesTrabajo = new HashSet<>();
  
     public Servicio() {
         
@@ -69,6 +81,26 @@ public class Servicio { // Cambio el nombre de la clase a "Servicio"
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
+    public BigDecimal getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
+	}	
+    //Agregamos un método para actualizar el precio
+    public void actualizarPrecio(BigDecimal nuevoPrecio) {
+        this.precio = nuevoPrecio;
+    }
+
+	public Set<OrdenTrabajo> getOrdenesTrabajo() {
+		return ordenesTrabajo;
+	}
+
+	public void setOrdenesTrabajo(Set<OrdenTrabajo> ordenesTrabajo) {
+		this.ordenesTrabajo = ordenesTrabajo;
+	}
 
     @Override
     public String toString() {
