@@ -25,7 +25,7 @@ public class Servicio { // Cambio el nombre de la clase a "Servicio"
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
     
-    @Column(name = "descripcion", nullable = false, length = 50)
+    @Column(name = "descripcion", nullable = false, length = 1000)
     private String descripcion;
     
     

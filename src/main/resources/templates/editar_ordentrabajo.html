@@ -64,11 +64,13 @@
 				<div class="card-body">
 					<form th:action="@{/ordentrabajo/{id}(id=${ordentrabajo.id})}" th:object="${ordentrabajo}" method="POST"> <!-- Cambio vehiculo por ordentrabajo -->
 						<div class="form-group">
-							<label>Servicios:</label>
-							<select name="servicio.id" class="form-control" required>
-								<option th:each="servicio : ${servicios}" th:value="${servicio.id}"
-									th:text="${servicio.nombre}"></option>
-							</select>
+
+						    <label>Servicios:</label>
+						    <div class="form-check" th:each="servicio : ${servicios}">
+						        <input class="form-check-input" type="checkbox" th:id="'servicio_' + ${servicio.id}" th:name="servicios" th:value="${servicio.id}" th:checked="${ordentrabajo.servicios.contains(servicio)}">
+						        <label class="form-check-label" th:for="'servicio_' + ${servicio.id}" th:text="${servicio.nombre}"></label>
+						    </div>
+
 
 							<label>Cliente:</label>
 							<select name="cliente.id" class="form-control" required>

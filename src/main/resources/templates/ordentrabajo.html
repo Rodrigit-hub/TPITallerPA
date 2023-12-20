@@ -107,9 +107,7 @@
 				<tr th:each="OrdenTrabajo:${ordentrabajo}"> <!-- Cambio Vehiculo por OrdenTrabajo -->
 					<td th:text="${OrdenTrabajo.id}"></td>
 					<td>
-						<ul>
-							<li th:each="servicio: ${OrdenTrabajo.servicio}" th:text="${servicio.nombre}"></li>
-						</ul>
+						<span th:text="${#strings.arrayJoin(OrdenTrabajo.servicios.![nombre], ', ')}"></span>
 					</td>
 					<td th:text="${OrdenTrabajo.vehiculo.patente}">2</td>
 					<td th:text="${OrdenTrabajo.cliente.nombre + ' ' + OrdenTrabajo.cliente.apellido}"></td>

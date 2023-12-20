@@ -106,7 +106,10 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         OrdenTrabajo ordentrabajoExistente = servicio.obtenerOrdenTrabajoPorID(id); 
         ordentrabajoExistente.setId(id);
         ordentrabajoExistente.setEstado(ordentrabajo.getEstado()); // Asegúrate de que el estado se establece correctamente
-
+        
+        // Actualiza los campos de la orden de trabajo existente con los nuevos valores
+        ordentrabajoExistente.setServicios(ordentrabajo.getServicios());
+        
         servicio.actualizarOrdenTrabajo(ordentrabajoExistente); 
         return "redirect:/ordentrabajo"; 
     }

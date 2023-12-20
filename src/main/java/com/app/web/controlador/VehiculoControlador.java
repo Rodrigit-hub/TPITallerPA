@@ -74,6 +74,17 @@ public class VehiculoControlador {
 	@GetMapping("/vehiculos/editar/{id}")
 	public String mostrarFormEditar(@PathVariable Long id, Model modelo) {
 		modelo.addAttribute("vehiculo", servicio.obtenerVehiculoPorID(id));
+
+	    // Obtener las listas necesarias para poblar los select en el formulario
+	    List<Cliente> clientes = clienteService.listarTodosLosClientes();
+	    List<Marca> marcas = marcaService.listarTodasLasMarcas();
+	    List<Modelo> modelos = modeloService.listarTodosLosModelos();
+
+	    // Agregar objetos necesarios al modelo;
+	    modelo.addAttribute("clientes", clientes);
+	    modelo.addAttribute("marcas", marcas);
+	    modelo.addAttribute("modelos", modelos);
+
 		return "editar_vehiculos";
 	}
 
@@ -83,7 +94,14 @@ public class VehiculoControlador {
 		Vehiculo vehiculoExistente = servicio.obtenerVehiculoPorID(id);
 		vehiculoExistente.setId(id);
 		vehiculoExistente.setPatente(vehiculo.getPatente());
-
+		 // Actualizar la relación con Marca
+	    vehiculoExistente.setMarca(vehiculo.getMarca());
+	    
+	    // Actualizar la relación con Modelo
+	    vehiculoExistente.setModelo(vehiculo.getModelo());
+	    
+	    // Actualizar la relación con Cliente
+	    vehiculoExistente.setCliente(vehiculo.getCliente());
 		servicio.actualizarVehiculo(vehiculoExistente);
 		return "redirect:/vehiculos";
 	}

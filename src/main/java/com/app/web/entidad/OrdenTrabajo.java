@@ -42,11 +42,11 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     @ManyToOne
     @JoinColumn(name = "vehiculo_id")
     Vehiculo vehiculo;
-
+/*
     @ManyToOne
     @JoinColumn(name = "servicio_id")
     Servicio servicio;
-    
+*/    
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "orden_trabajo_servicio",
@@ -75,10 +75,17 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
 		super();
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
-		this.servicio = servicio;
+		//this.servicio = servicio;
 		this.fechaCreacion = new Date(); // Establecer la fecha de creación al momento de la creación de la orden de trabajo
 	}
-
+	
+	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo) {
+	    super();
+	    this.cliente = cliente;
+	    this.vehiculo = vehiculo;
+	    this.fechaCreacion = new Date();
+	    this.servicios = new HashSet<>(); // Inicializar la colección
+	}
 
 	public Long getId() {
         return id;
@@ -106,13 +113,13 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
         this.vehiculo = vehiculo;
     }
 
-    public Servicio getServicio() {
-        return servicio;
-    }
+    //public Servicio getServicio() {
+    //    return servicio;
+    //}
 
-    public void setServicio(Servicio servicio) {
-        this.servicio = servicio;
-    }
+    //public void setServicio(Servicio servicio) {
+    //    this.servicio = servicio;
+    //}
     
 
     public Date getFechaCreacion() {
@@ -143,6 +150,6 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
 	@Override
 	public String toString() {
 		return "OrdenTrabajo [id=" + id + ", cliente=" + cliente
-				+ ", vehiculo=" + vehiculo + ", servicio=" + servicio + "]";
+				+ ", vehiculo=" + vehiculo + "]";
 	}
 }

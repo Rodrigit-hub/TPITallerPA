@@ -1,5 +1,7 @@
 package com.app.web.entidad;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Factura {
@@ -19,16 +21,22 @@ public class Factura {
         return servicios;
     }
 
-    public BigDecimal getSubTotal() {
-        return subTotal;
+
+    public String getImpuesto() {
+        return formatWithDecimals(impuesto.multiply(BigDecimal.valueOf(100)));
     }
 
-    public BigDecimal getImpuesto() {
-        return impuesto;
+    public String getSubTotal() {
+        return formatWithDecimals(subTotal);
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public String getTotal() {
+        return formatWithDecimals(total);
+    }
+
+    private String formatWithDecimals(BigDecimal value) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.##");
+        return decimalFormat.format(value);
     }
 
     private void calcularSubTotal() {
