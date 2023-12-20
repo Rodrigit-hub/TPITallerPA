@@ -31,7 +31,7 @@ public class Servicio { // Cambio el nombre de la clase a "Servicio"
     
 
 	@Column(name = "precio", nullable = false, length = 50)
-    private BigDecimal precio;
+    public BigDecimal precio;
 
     /*
     @OneToMany(mappedBy = "servicio")

@@ -1,5 +1,6 @@
 package com.app.web.controlador;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.web.entidad.Cliente;
+import com.app.web.entidad.Factura;
 import com.app.web.entidad.OrdenTrabajo; // Cambio Vehiculo por OrdenTrabajo
 import com.app.web.entidad.Servicio;
 import com.app.web.entidad.Vehiculo;
@@ -138,7 +140,21 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         modelo.addAttribute("ordentrabajo", ordenesFiltradas);
         return "ordentrabajo";
     }
-
     
+    @GetMapping("/ordentrabajo/factura/{ordenId}")
+    public String generarFactura(@PathVariable Long ordenId, Model model) {
+        OrdenTrabajo ordenTrabajo = servicio.obtenerOrdenTrabajoPorID(ordenId);
+        model.addAttribute("ordenTrabajo", ordenTrabajo);
+        
+        // Crear una factura basada en los servicios de la orden de trabajo
+        Factura factura = new Factura(new ArrayList<>(ordenTrabajo.getServicios()));
+        
+        // Agregar la factura al modelo para que esté disponible en la vista
+        model.addAttribute("factura", factura);
+       
+        
+        return "factura";
+    
+    }
 
 }

@@ -58,42 +58,55 @@
 	</nav>
 
 
- <div class="container">
-		<div class="row">
-			<h1>FACTURA</h1>
-		</div>
+ <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="mb-0">FACTURA</h1>
+                </div>
+                <div class="card-body">
+                   <form th:action="@{/factura/generarPdf}" th:object="${ordenTrabajo}" method="get">
+						<div class="mb-3">
+							<label class="form-label">Fecha Actual:</label> <span
+								th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
+						</div>
+						<div class="mb-3">
+                            <label class="form-label">Cliente:</label>
+                            <span th:text="${ordenTrabajo.cliente.nombre + ' ' + ordenTrabajo.cliente.apellido}"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Vehículo:</label>
+                            <span th:text="${ordenTrabajo.vehiculo.patente}"></span>
+                        </div>
+						<div class="mb-3">
+						    <label class="form-label">Servicios:</label>
+						    <ul class="list-group">
+						        <li th:each="servicio : ${ordenTrabajo.servicio}" class="list-group-item d-flex justify-content-between align-items-center">
+						            <span th:text="${servicio.nombre}"></span>
+						            <span class="badge bg-primary rounded-pill" th:text="${servicio.precio}"></span>
+						        </li>
+						    </ul>
+						</div>
 
-    <form th:action="@{/factura/generar}" th:object="${ordenTrabajo}" method="post">
-        <!-- Campos de la factura -->
-        <div>
-            <label>Cliente:</label>
-            <span th:text="${ordenTrabajo.cliente.nombre}"></span>
+						<div class="mb-3">
+							<label class="form-label">Impuesto:</label>
+							<span th:text="${factura.impuesto}"> </span>
+						</div>                       
+						<div class="mb-3">
+							<label class="form-label">Subtotal:</label>
+							<span th:text="${factura.subTotal}"> </span>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Total:</label>
+							<span th:text="${factura.total}"> </span>
+						</div>
+							<button type="submit" class="btn btn-primary">Generar Factura en PDF</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div>
-            <label>Vehículo:</label>
-            <span th:text="${ordenTrabajo.vehiculo.modelo}"></span>
-        </div>
-
-        <div>
-            <label>Servicios:</label>
-            <ul>
-                <li th:each="servicio : ${ordenTrabajo.servicios}" th:text="${servicio.nombre}"></li>
-            </ul>
-        </div>
-
-        <div>
-            <label>Fecha Actual:</label>
-            <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
-        </div>
-
-        <!-- Agrega más campos según sea necesario -->
-
-        <div>
-            <!-- Agrega un botón de envío del formulario -->
-            <button type="submit">Generar Factura</button>
-        </div>
-    </form>
-	</div>
+    </div>
+</div>
 </body>
 </html>
