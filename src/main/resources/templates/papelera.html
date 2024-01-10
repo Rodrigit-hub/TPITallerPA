@@ -69,7 +69,8 @@
 					<th>Id</th>
 					<th>Servicios</th>
 					<th>Vehiculo</th>				
-					<th>Cliente</th>					
+					<th>Cliente</th>
+					<th>Fecha Creación</th>					
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -77,9 +78,12 @@
 				<!-- Iterar sobre las órdenes eliminadas -->
 				<tr th:each="OrdenTrabajo: ${ordenesEliminadas}">
 					<td th:text="${OrdenTrabajo.id}"></td>
-					<td th:text="${OrdenTrabajo.servicio.nombre}"></td>
+					<td>
+						<span th:text="${#strings.arrayJoin(OrdenTrabajo.servicios.![nombre], ', ')}"></span>
+					</td>
 					<td th:text="${OrdenTrabajo.vehiculo.patente}"></td>
 					<td th:text="${OrdenTrabajo.cliente.nombre + ' ' + OrdenTrabajo.cliente.apellido}"></td>
+					<td th:text="${#dates.format(OrdenTrabajo.fechaCreacion, 'yyyy-MM-dd')}"></td>
 					<td>
 						<a th:href="@{/ordentrabajo/restaurar/{id}(id=${OrdenTrabajo.id})}" class="btn btn-success">Restaurar</a>
 					</td>
