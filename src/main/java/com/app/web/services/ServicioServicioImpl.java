@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.web.entidad.Servicio; // Cambio el import y el uso de la clase
+import com.app.web.entidad.Vehiculo;
 import com.app.web.repository.ServicioRepositorio; // Cambio el import y el uso de la clase
 
 @Service
@@ -37,8 +38,13 @@ public class ServicioServicioImpl implements ServicioServicio { // Cambio el nom
 
     @Override
     public void eliminarServicio(Long id) { // Cambio el nombre del método
-        repositorio.deleteById(id);
-    }
+		//repositorio.deleteById(id);
+    	Servicio servicio = repositorio.findById(id).orElse(null);
+        if (servicio != null) {
+        	servicio.setEliminado(true);
+            repositorio.save(servicio);
+        }
+	}
     @Override
     public Servicio agregarPrecio(Long id, BigDecimal precio) {
         Servicio servicio = obtenerServicioPorId(id);
@@ -59,4 +65,24 @@ public class ServicioServicioImpl implements ServicioServicio { // Cambio el nom
         }
         return null; // O manejar de otra manera si el servicio no existe
     }
+
+	@Override
+	public List<Servicio> listarTodosLosServiciosNoEliminados() {
+        return repositorio.findByEliminadoFalse();
+	}
+
+	@Override
+	public List<Servicio> listarTodosLosServiciosEliminados() {
+	       return repositorio.findByEliminadoTrue();
+	}
+
+	@Override
+	public void restaurarServicio(Long id) {
+		Servicio servicio = repositorio.findById(id).orElse(null);
+	    if (servicio != null) {
+	    	servicio.setEliminado(false);
+	        repositorio.save(servicio);
+	    }
+    }
+	
 }

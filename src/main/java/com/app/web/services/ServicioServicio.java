@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.app.web.entidad.Servicio; // Cambio el import y el uso de la clase
+import com.app.web.entidad.Vehiculo;
 
 public interface ServicioServicio { // Cambio el nombre de la interfaz
     public List<Servicio> listarTodosLosServicios(); // Cambio el nombre del método
@@ -19,4 +20,11 @@ public interface ServicioServicio { // Cambio el nombre de la interfaz
     public Servicio agregarPrecio(Long id, BigDecimal precio);
 
     public Servicio actualizarPrecio(Long id, BigDecimal nuevoPrecio);
+    
+    public List<Servicio> listarTodosLosServiciosNoEliminados();
+
+    public List<Servicio> listarTodosLosServiciosEliminados();
+    
+    public void restaurarServicio(Long id);
+    
 }

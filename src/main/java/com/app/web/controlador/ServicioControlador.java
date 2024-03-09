@@ -1,6 +1,7 @@
 package com.app.web.controlador;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.web.entidad.Servicio;
+import com.app.web.entidad.Vehiculo;
 import com.app.web.services.ServicioServicio;
 
 
@@ -23,7 +25,7 @@ public class ServicioControlador {
 	
 	@GetMapping("/servicios")
 	public String listarServicios(Model modelo) {
-		modelo.addAttribute("servicios", servicioMecanico.listarTodosLosServicios());
+		modelo.addAttribute("servicios", servicioMecanico.listarTodosLosServiciosNoEliminados());
 		return "servicios"; // Nos retorna al archivo servicios
 	}
 	
@@ -69,4 +71,17 @@ public class ServicioControlador {
         servicioMecanico.actualizarPrecio(id, nuevoPrecio);
         return "redirect:/servicios";
     }
+	
+	@GetMapping("/servicios/papelera")
+	public String listarServiciosEliminados(Model modelo) {
+	    List<Servicio> serviciosEliminados = servicioMecanico.listarTodosLosServiciosEliminados();
+	    modelo.addAttribute("serviciosEliminados", serviciosEliminados);
+	    return "papeleraServicios";
+	}
+
+	@GetMapping("/servicios/restaurar/{id}")
+	public String restaurarServicios(@PathVariable Long id) {
+		servicioMecanico.restaurarServicio(id);
+	    return "redirect:/servicios";
+	}
 }

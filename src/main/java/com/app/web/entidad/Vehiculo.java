@@ -20,7 +20,9 @@ public class Vehiculo {
 	
 	@Column(name = "patente", nullable = false, length = 50, unique=true)
 	private String patente;
-	
+    
+    @Column(name = "eliminado")
+    private boolean eliminado;
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -98,5 +100,12 @@ public class Vehiculo {
         this.modelo = modelo;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
 	
 }

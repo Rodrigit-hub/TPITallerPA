@@ -21,18 +21,20 @@ public class Servicio { // Cambio el nombre de la clase a "Servicio"
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name = "nombre", nullable = false, length = 50)
+
+
+	@Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
     
     @Column(name = "descripcion", nullable = false, length = 1000)
     private String descripcion;
-    
-    
 
 	@Column(name = "precio", nullable = false, length = 50)
     public BigDecimal precio;
 
+    @Column(name = "eliminado")
+    private boolean eliminado;
+    
     /*
     @OneToMany(mappedBy = "servicio")
     private List<OrdenTrabajo> ordentrabajo;
@@ -100,6 +102,14 @@ public class Servicio { // Cambio el nombre de la clase a "Servicio"
 
 	public void setOrdenesTrabajo(Set<OrdenTrabajo> ordenesTrabajo) {
 		this.ordenesTrabajo = ordenesTrabajo;
+	}
+    
+    public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 
     @Override

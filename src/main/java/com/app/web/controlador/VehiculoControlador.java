@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class VehiculoControlador {
 
 	@GetMapping("/vehiculos")
 	public String listarVehiculos(Model modelo) {
-		modelo.addAttribute("vehiculos", servicio.listarTodosLosVehiculos());
+		modelo.addAttribute("vehiculos", servicio.listarTodosLosVehiculosNoEliminados());
 		return "vehiculos"; // Nos retorna al archivo vehiculos
 	}
 	
@@ -106,10 +107,22 @@ public class VehiculoControlador {
 		return "redirect:/vehiculos";
 	}
 
-	@GetMapping("/vehiculos/{id}")
+	@DeleteMapping("/vehiculos/{id}")
 	public String eliminarVehiculo(@PathVariable Long id) {
 		servicio.eliminarVehiculo(id);
 		return "redirect:/vehiculos";
 	}
+	
+	@GetMapping("/vehiculos/papelera")
+	public String listarVehiculosEliminados(Model modelo) {
+	    List<Vehiculo> vehiculosEliminados = servicio.listarTodosLosVehiculosEliminados();
+	    modelo.addAttribute("vehiculosEliminados", vehiculosEliminados);
+	    return "papeleraVehiculo";
+	}
 
+	@GetMapping("/vehiculos/restaurar/{id}")
+	public String restaurarVehiculo(@PathVariable Long id) {
+		servicio.restaurarVehiculo(id);
+	    return "redirect:/vehiculos";
+	}
 }

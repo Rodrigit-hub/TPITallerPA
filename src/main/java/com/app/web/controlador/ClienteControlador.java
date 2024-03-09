@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.web.entidad.Cliente;
 import com.app.web.entidad.OrdenTrabajo;
+import com.app.web.entidad.Vehiculo;
 import com.app.web.services.ClienteServicio;
 
 import java.util.Comparator;
@@ -29,9 +30,9 @@ public class ClienteControlador {
 	@GetMapping("/clientes")
 	public String listarClientes(Model modelo) {
 		// Llama al servicio para obtener todos los clientes
-		modelo.addAttribute("clientes",servicio.listarTodosLosClientes());
+		modelo.addAttribute("clientes",servicio.listarTodosLosClientesNoEliminados());
 		// Devuelve la vista "clientes" que mostrará la lista de clientes.
-		List<Cliente> clientes = servicio.listarTodosLosClientes();
+		List<Cliente> clientes = servicio.listarTodosLosClientesNoEliminados();
 	    // Agregar la lógica para obtener la fecha de la última orden directamente en el controlador
 	    for (Cliente cliente : clientes) {
 	        if (cliente.getOrdenesDeTrabajo() != null && !cliente.getOrdenesDeTrabajo().isEmpty()) {
@@ -138,4 +139,16 @@ public class ClienteControlador {
 		return "redirect:/clientes";
 	}
 	
+	@GetMapping("/clientes/papelera")
+	public String listarClientesEliminados(Model modelo) {
+	    List<Cliente> clientesEliminados = servicio.listarTodosLosClientesEliminados();
+	    modelo.addAttribute("clientesEliminados", clientesEliminados);
+	    return "papeleraCliente";
+	}
+
+	@GetMapping("/clientes/restaurar/{id}")
+	public String restaurarCliente(@PathVariable Long id) {
+		servicio.restaurarCliente(id);
+	    return "redirect:/clientes";
+	}
 }

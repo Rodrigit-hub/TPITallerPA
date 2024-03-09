@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.app.web.entidad.Cliente;
+import com.app.web.entidad.Servicio;
 
 /**
  * Interfaz que define un repositorio JPA para la entidad Cliente.
@@ -37,6 +38,9 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
 		       @Param("direccion") String direccion, 
 		       @Param("informacion") String informacion,
 		       @Param("fechaCreacionOrden") Date fechaCreacionOrden);
+
+		List<Cliente> findByEliminadoFalse();
+		List<Cliente> findByEliminadoTrue();
 }
 
 

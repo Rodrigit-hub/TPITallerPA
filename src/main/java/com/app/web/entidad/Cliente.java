@@ -37,6 +37,9 @@ public class Cliente {
 
 	@Column(name = "informacion", nullable = false, length = 50) // Configura la columna 'informacion'.
 	private String informacion = "";
+	
+    @Column(name = "eliminado")
+    private boolean eliminado;
 
 	@OneToMany(mappedBy = "cliente")
 	private List<Vehiculo> vehiculos;
@@ -166,4 +169,14 @@ public class Cliente {
 	        this.fechaCreacionOrden = fechaCreacionOrden;
 	    }
     }
+
+
+	public boolean isEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
+	}
+
 }

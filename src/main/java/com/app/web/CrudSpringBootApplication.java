@@ -59,7 +59,7 @@ public class CrudSpringBootApplication implements CommandLineRunner{
     //carga de datos iniciales.
 	@Override
 	public void run(String... args) throws Exception {
-/*
+
 		Servicio servicio1 = new Servicio("Cambio de aceite", "Cambia el aceite de un auto");
 		servicio1.setPrecio(new BigDecimal("350.0"));
 		repositorioServicio.save(servicio1);
@@ -237,7 +237,7 @@ public class CrudSpringBootApplication implements CommandLineRunner{
 		vehiculo6.setMarca(marca7);
 		vehiculo6.setModelo(modelo5);
 		repositorio.save(vehiculo6);
-*/
+
 	}
 }
 

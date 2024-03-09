@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.app.web.entidad.Cliente;
+import com.app.web.entidad.Vehiculo;
 
 /**
  * Interfaz que define los métodos para gestionar clientes en la aplicación.
@@ -19,4 +20,10 @@ public interface ClienteServicio {
 	public List<Cliente> listAll(String palabraClave);
 	public List<Cliente> findByClienteContainingIgnoreCase(String nombre, String id, String apellido, String email,
 			String telefono, String direccion, String informacion, Date fechaCreacionOrden);
-	}
+    public List<Cliente> listarTodosLosClientesNoEliminados();
+
+    public List<Cliente> listarTodosLosClientesEliminados();
+    
+    public void restaurarCliente(Long id);
+    	
+}
