@@ -41,6 +41,8 @@ public interface ClienteRepositorio extends JpaRepository<Cliente, Long> {
 
 		List<Cliente> findByEliminadoFalse();
 		List<Cliente> findByEliminadoTrue();
+		List<Cliente> findAllByNombre(String nombre);
+		public Cliente findFirstByNombre(String nombre);
 }
 
 
