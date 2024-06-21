@@ -1,8 +1,3 @@
-// mi_script.js
-function mostrarAlerta() {
-    alert("¡Hola desde JavaScript!");
-}
-
 //Funcion que me permite validar las patentes	
 document.addEventListener("DOMContentLoaded", function () {
     var patenteInput = document.querySelector('input[name="patente"]');
