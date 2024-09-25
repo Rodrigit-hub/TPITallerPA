@@ -45,7 +45,7 @@ public class ClienteTests {
         String nombre = "Celia";
         List<Cliente> clientes = repositorio.findAllByNombre(nombre);
 
-        assertThat(clientes).isNotEmpty(); // Asegúrate de que la lista no está vacía
+        assertThat(clientes).isNotEmpty(); // Aseguramos de que la lista no está vacía
         for (Cliente cliente : clientes) {
             assertThat(cliente.getNombre()).isEqualTo(nombre);
         }
