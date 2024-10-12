@@ -98,6 +98,7 @@
 					<th>Servicios</th>
 					<th>Vehiculo</th>				
 					<th>Cliente</th>
+					<th>Tecnico</th>
 					<th>Fecha de Creación</th>
 					<th>Estado</th>						
 					<th>Acciones</th>
@@ -111,6 +112,7 @@
 					</td>
 					<td th:text="${OrdenTrabajo.vehiculo.patente}">2</td>
 					<td th:text="${OrdenTrabajo.cliente.nombre + ' ' + OrdenTrabajo.cliente.apellido}"></td>
+					<td th:text="${OrdenTrabajo.tecnico.nombre + ' ' + OrdenTrabajo.tecnico.apellido}"></td>
 					<td th:text="${#dates.format(OrdenTrabajo.fechaCreacion, 'yyyy-MM-dd')}"></td>
 					<td th:text="${OrdenTrabajo.estado}"></td>					
 					<td>

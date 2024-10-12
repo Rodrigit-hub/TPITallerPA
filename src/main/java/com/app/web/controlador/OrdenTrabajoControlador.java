@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.web.entidad.Cliente;
 import com.app.web.entidad.Factura;
+import com.app.web.entidad.tecnico;
 import com.app.web.entidad.OrdenTrabajo; // Cambio Vehiculo por OrdenTrabajo
 import com.app.web.entidad.Servicio;
 import com.app.web.entidad.Vehiculo;
@@ -24,6 +25,7 @@ import com.app.web.services.ClienteServicioIMPL;
 import com.app.web.services.OrdenTrabajoServicio; // Cambio Vehiculo por OrdenTrabajo
 import com.app.web.services.ServicioServicioImpl;
 import com.app.web.services.VehiculoServiceImpl;
+import com.app.web.services.tecnicoServicioIMPL;
 
 
 @Controller
@@ -53,6 +55,8 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
     private ClienteServicioIMPL clienteService;
     @Autowired
     private ServicioServicioImpl servicioService;
+    @Autowired
+    private tecnicoServicioIMPL tecnicoService;
 
 
     @GetMapping("/ordentrabajo/new") // Cambio vehiculos por ordentrabajo
@@ -64,11 +68,14 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         List<Servicio> servicios = servicioService.listarTodosLosServicios();
         List<Cliente> clientes = clienteService.listarTodosLosClientes();
         List<Vehiculo> vehiculos = vehiculoService.listarTodosLosVehiculos();
-
+        List<tecnico> tecnicos = tecnicoService.listarTodosLosTecnicos();
+        
+        
         modelo.addAttribute("ordentrabajo", ordentrabajo); // Cambio vehiculo por ordentrabajo
         modelo.addAttribute("clientes", clientes);
         modelo.addAttribute("vehiculos", vehiculos);
         modelo.addAttribute("servicios", servicios);
+        modelo.addAttribute("tecnicos", tecnicos);
 
         return "crear_ordentrabajo"; 
     }
@@ -91,11 +98,13 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         List<Servicio> servicios = servicioService.listarTodosLosServicios();
         List<Cliente> clientes = clienteService.listarTodosLosClientes();
         List<Vehiculo> vehiculos = vehiculoService.listarTodosLosVehiculos();
+        List<tecnico> tecnicos = tecnicoService.listarTodosLosTecnicos();
 
         modelo.addAttribute("ordentrabajo", ordentrabajo);
         modelo.addAttribute("clientes", clientes);
         modelo.addAttribute("vehiculos", vehiculos);
         modelo.addAttribute("servicios", servicios);
+        modelo.addAttribute("tecnicos", tecnicos);
 
         return "editar_ordentrabajo"; 
     }

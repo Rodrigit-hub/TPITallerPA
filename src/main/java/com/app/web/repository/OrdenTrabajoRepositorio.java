@@ -20,5 +20,6 @@ public interface OrdenTrabajoRepositorio extends JpaRepository<OrdenTrabajo, Lon
 	@Query("SELECT ot FROM OrdenTrabajo ot " +
             "WHERE (:fecha IS NULL OR ot.fechaCreacion = :fecha)")
     List<OrdenTrabajo> filtrarOrdenesPorFecha(@Param("fecha") Date fecha);
-
+	List<OrdenTrabajo> findByTecnicoIdAndFechaCreacionBetween(Long tecnicoId, Date fechaInicio, Date fechaFin);
+	
 }

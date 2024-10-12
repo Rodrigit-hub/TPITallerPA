@@ -58,7 +58,11 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
     private EstadosOrden estado;
-
+    
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
+    tecnico tecnico;
+    
     public OrdenTrabajo() {
 
     }
@@ -71,18 +75,20 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
 		this.servicios = servicios;
 	}
 
-	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, Servicio servicio) {
+	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, Servicio servicio, tecnico tecnico) {
 		super();
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
+		this.tecnico = tecnico;
 		//this.servicio = servicio;
 		this.fechaCreacion = new Date(); // Establecer la fecha de creación al momento de la creación de la orden de trabajo
 	}
 	
-	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo) {
+	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, tecnico tecnico) {
 	    super();
 	    this.cliente = cliente;
 	    this.vehiculo = vehiculo;
+	    this.tecnico = tecnico;
 	    this.fechaCreacion = new Date();
 	    this.servicios = new HashSet<>(); // Inicializar la colección
 	}
@@ -146,6 +152,14 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     public void setEstado(EstadosOrden estado) {
         this.estado = estado;
     }
+    
+    public tecnico getTecnico() {
+		return tecnico;
+	}
+
+	public void setTecnico(tecnico tecnico) {
+		this.tecnico = tecnico;
+	}
 
 	@Override
 	public String toString() {
