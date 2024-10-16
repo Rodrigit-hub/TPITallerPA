@@ -48,6 +48,17 @@
 						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
 					</li>
 				</ul>
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<form action="/logout" method="post">
+							<input type="hidden" th:name="${_csrf.parameterName}"
+								th:value="${_csrf.token}" />
+							<button type="submit" class="nav-link"
+								style="border: none; background: none; cursor: pointer;">
+								Cerrar Sesión</button>
+						</form>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</nav>
