@@ -1,16 +1,24 @@
 package com.app.web.controlador;
+
+import com.app.web.entidad.Usuario;
+import com.app.web.repository.UsuarioRepositorio;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
+    private final UsuarioRepositorio usuarioRepositorio;
+
+    public SecurityConfig(UsuarioRepositorio usuarioRepositorio) {
+        this.usuarioRepositorio = usuarioRepositorio;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -28,19 +36,26 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .permitAll()
-            );
+            )
+            .exceptionHandling()
+            .accessDeniedPage("/403"); // Página de error de acceso denegado
 
         return http.build();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
-        userDetailsManager.createUser(User.withUsername("user")
-                .password(passwordEncoder.encode("1234")) // Codificación de la contraseña
-                .roles("USER")
-                .build());
-        return userDetailsManager;
+    public UserDetailsService userDetailsService() {
+        return username -> {
+            Usuario usuario = usuarioRepositorio.findByUsername(username);
+            if (usuario == null) {
+                throw new UsernameNotFoundException("Usuario no encontrado");
+            }
+            return org.springframework.security.core.userdetails.User
+                    .withUsername(usuario.getUsername())
+                    .password(usuario.getPassword()) // Contraseña ya codificada
+                    .roles(usuario.getRole())
+                    .build();
+        };
     }
 
     @Bean
