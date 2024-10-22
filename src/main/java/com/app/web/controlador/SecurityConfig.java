@@ -23,22 +23,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/register").permitAll() // Rutas públicas
-                .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
-            )
-            .formLogin(form -> form
-                .loginPage("/login") // Ruta para el formulario de login
-                .defaultSuccessUrl("/index", true) // Ruta después de un login exitoso
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .permitAll()
-            )
-            .exceptionHandling()
-            .accessDeniedPage("/403"); // Página de error de acceso denegado
+                .authorizeHttpRequests(auth -> auth
+                                .requestMatchers("/login", "/register").permitAll() /* Rutas públicas */
+                                .anyRequest().authenticated() /* Todas las demás rutas requieren autenticación */
+                )
+                .formLogin(form -> form
+                                .loginPage("/login") /* Ruta para el formulario de login */
+                                .defaultSuccessUrl("/index", true) /* Ruta después de un login exitoso */ 
+                                .permitAll()
+                )
+                .logout(logout -> logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/login") /* redirige a la página de inicio de sesión después de cerrar sesión */
+                                .permitAll()
+                )
+                .exceptionHandling(handling -> handling
+                        .accessDeniedPage("/403")); /* Página de error de acceso denegado */
 
         return http.build();
     }
@@ -52,7 +52,7 @@ public class SecurityConfig {
             }
             return org.springframework.security.core.userdetails.User
                     .withUsername(usuario.getUsername())
-                    .password(usuario.getPassword()) // Contraseña ya codificada
+                    .password(usuario.getPassword()) 
                     .roles(usuario.getRole())
                     .build();
         };
