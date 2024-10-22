@@ -25,10 +25,10 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .permitAll()
-            );
+            	    .logoutUrl("/logout")
+            	    .logoutSuccessUrl("/login")  // redirige a la página de inicio de sesión después de cerrar sesión
+            	    .permitAll()
+            	);
 
         return http.build();
     }
