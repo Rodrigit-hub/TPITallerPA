@@ -1,6 +1,112 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<<<<<<< HEAD
+    <meta charset="utf-8">
+    <title>Taller Mecánico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            background-image: url('/images/rasante-sport-taller.jpg'); /* Ruta de la imagen de fondo */
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+            position: absolute;
+            width: 100%;
+            z-index: -1;
+        }
+
+        .container-full {
+            background-color: rgba(128, 128, 128, 0.8); /* Fondo blanco semitransparente */
+            padding: 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section-link {
+            border: 1px solid black;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 24px;
+            background-color: #fff;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .section-link:hover {
+            background-color: #e0e0e0;
+        }
+
+        .welcome-text {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .stats-btn {
+            margin-top: 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            justify-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+			
+            <a class="navbar-brand" href="#">Gestor Taller Mecanico</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-full" >
+        <h1 class="welcome-text">¡Bienvenido a Autos S.A!</h1>
+        <div class="grid-container">
+            <a href="/vehiculos" class="section-link" style="color: rgb(79, 89, 89)">Vehículos</a>
+            <a href="/marcas" class="section-link" style="color: rgb(79, 89, 89)">Marcas</a>
+            <a href="/tecnico" class="section-link" style="color: rgb(79, 89, 89)">Técnico</a>
+            <a href="/modelos" class="section-link" style="color: rgb(79, 89, 89)">Modelos</a>
+            <a href="/clientes" class="section-link" style="color: rgb(79, 89, 89)">Clientes</a>
+            <a href="/ordentrabajo" class="section-link" style="color: rgb(79, 89, 89)">Ordenes de Trabajo</a>
+            <a href="/servicios" class="section-link" style="color: rgb(79, 89, 89)">Servicios</a>
+        </div>
+        <a th:href="@{/estadisticas}" class="btn btn-info stats-btn" style="background-color: darkgrey; border-color: black;">Estadísticas</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+pbz6jb/iUJ8F9D7Ia0z6G5kDk5F5sDI4t8" crossorigin="anonymous"></script>
+=======
 <meta charset="utf-8">
 <title>Taller Mecánico</title>
 <link
@@ -145,5 +251,6 @@ body, html {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+pbz6jb/iUJ8F9D7Ia0z6G5kDk5F5sDI4t8"
 		crossorigin="anonymous"></script>
+>>>>>>> testing
 </body>
 </html>

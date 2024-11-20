@@ -30,7 +30,7 @@ import com.app.web.repository.tecnicoRepositorio;
 public class CrudSpringBootApplication implements CommandLineRunner{
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrudSpringBootApplication.class, args); //Inicia la aplicación Spring Boot.
+		SpringApplication.run(CrudSpringBootApplication.class, args); 
 	}
 
 	@Autowired
@@ -55,8 +55,7 @@ public class CrudSpringBootApplication implements CommandLineRunner{
 	private OrdenTrabajoRepositorio repositorioOrdenTrabajo;
 	
 	
-	//este método es ejecutado al iniciar la aplicación.
-    //carga de datos iniciales.
+	
 	@Override
 	public void run(String... args) throws Exception {
 /*
