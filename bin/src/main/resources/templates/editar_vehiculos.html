@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Editar Vehiculos</title>
+	<!-- Vincula el archivo JavaScript -->
+	<script src="/js/validaciones.js"></script>
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Gestor Taller Mecanico</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+              <li class="nav-item">
+                <a class="nav-link" href="/vehiculos">Vehiculos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clientes">Clientes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/modelos">Modelos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/marcas">Marcas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tecnico">Tecnicos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ordentrabajo">Orden De Trabajo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/servicios">Servicios</a>
+              </li>
+					<li class="nav-item">
+						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center">Edicion de Vehiculos</h1>
+				<div class="card-body">
+					<form th:action="@{/vehiculos/{id}(id=${vehiculo.id})}" th:object="${vehiculo}" method="POST">
+						<div class="form-group">
+							<label>Patente : </label>
+							<input type="text" name="patente" th:field="*{patente}" class="form-control"
+								placeholder="Formato A000AAA, respete mayusculas y desestime el espacio: " minlength="7">
+
+							    <label>Cliente:</label>
+							    <select name="cliente.id" class="form-control" required>
+							        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+							    </select>
+							</div>
+							<div class="form-group">
+							    <label>Marca:</label>
+							    <select name="marca.id" class="form-control" required>
+							        <option th:each="marca : ${marcas}" th:value="${marca.id}" th:text="${marca.nombre}"></option>
+							    </select>
+							</div>
+							<div class="form-group">
+							    <label>Modelo:</label>
+							    <select name="modelo.id" class="form-control" required>
+							        <option th:each="modelo : ${modelos}" th:value="${modelo.id}" th:text="${modelo.nombre}"></option>
+							    </select>
+
+						</div>
+						<br>
+						<div class="box-footer">
+							<button class="btn btn-success">Guardar</button>
+
+						</div>
+					</form>
+
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

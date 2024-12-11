@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Registro de clientes</title>
+
+	<!-- Vincula el archivo JavaScript -->
+	<script src="/js/validaciones.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+	<!-- Bootstrap Icons CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Gestor Taller Mecanico</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/vehiculos">Vehiculos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/clientes">Clientes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/modelos">Modelos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/marcas">Marcas</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/tecnico">Tecnicos</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/ordentrabajo">Orden De Trabajo</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/servicios">Servicios</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<h1 class="mb-0">FACTURA</h1>
+					</div>
+					<div class="card-body">
+						<form th:action="@{/factura/generarPdf}" th:object="${ordenTrabajo}" method="get">
+							<div class="mb-3">
+								<label class="form-label">Fecha Actual:</label> <span
+									th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Cliente:</label>
+								<span
+									th:text="${ordenTrabajo.cliente.nombre + ' ' + ordenTrabajo.cliente.apellido}"></span>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Vehículo:</label>
+								<span th:text="${ordenTrabajo.vehiculo.patente}"></span>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Servicios:</label>
+								<ul class="list-group">
+									<li th:each="servicio : ${ordenTrabajo.servicios}"
+										class="list-group-item d-flex justify-content-between align-items-center">
+										<span th:text="${servicio.nombre}"></span>
+										<span class="badge bg-primary rounded-pill" th:text="${servicio.precio}"></span>
+									</li>
+								</ul>
+							</div>
+
+							<div class="mb-3">
+								<label class="form-label">Impuesto: %</label>
+								<span th:text="${factura.impuesto}"> </span>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Subtotal: $</label>
+								<span th:text="${factura.subTotal}"> </span>
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Total: $</label>
+								<span th:text="${factura.total}"> </span>
+							</div>
+						
+						</form>
+
+						<a th:href="@{/ordentrabajo/factura/{ordenId}/pdf(ordenId=${ordenTrabajo.id})}" target="_blank" class="btn btn-primary">Generar PDF</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

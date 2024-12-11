@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<title>Editar Ordenes de Trabajo</title> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
+	<!-- Vincula el archivo JavaScript -->
+	<script src="/js/validaciones.js"></script>
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Gestor Taller Mecanico</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/ordentrabajo">OrdenesTrabajo</a> <!-- Cambio Vehiculos por OrdenesTrabajo -->
+					</li>
+              <li class="nav-item">
+                <a class="nav-link" href="/vehiculos">Vehiculos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clientes">Clientes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/modelos">Modelos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/marcas">Marcas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tecnico">Tecnicos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ordentrabajo">Orden De Trabajo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/servicios">Servicios</a>
+              </li>
+					<li class="nav-item">
+						<a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class="text-center">Edicion de Ordenes de Trabajo</h1> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
+				<div class="card-body">
+					<form th:action="@{/ordentrabajo/{id}(id=${ordentrabajo.id})}" th:object="${ordentrabajo}" method="POST"> <!-- Cambio vehiculo por ordentrabajo -->
+						<div class="form-group">
+
+						    <label>Servicios:</label>
+						    <div class="form-check" th:each="servicio : ${servicios}">
+						        <input class="form-check-input" type="checkbox" th:id="'servicio_' + ${servicio.id}" th:name="servicios" th:value="${servicio.id}" th:checked="${ordentrabajo.servicios.contains(servicio)}">
+						        <label class="form-check-label" th:for="'servicio_' + ${servicio.id}" th:text="${servicio.nombre}"></label>
+						    </div>
+
+
+							<label>Cliente:</label>
+							<select name="cliente.id" class="form-control" required>
+								<option th:each="cliente : ${clientes}" th:value="${cliente.id}"
+									th:text="${cliente.nombre  +' '+ cliente.apellido}"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Vehiculos:</label>
+							<select name="vehiculo.id" class="form-control" required>
+								<option th:each="vehiculo : ${vehiculos}" th:value="${vehiculo.id}"
+									th:text="${vehiculo.patente}"></option>
+							</select>
+						</div>
+					<div class="form-group">
+						<label>Estado:</label>
+						<select name="estado" id="estado">
+							<option th:each="estado : ${T(com.app.web.entidad.EstadosOrden).values()}" th:value="${estado}"
+								th:selected="${ordentrabajo.estado}">
+								<th:block th:text="${estado}"></th:block>
+							</option>
+						</select>
+					</div>
+ <!-- Nueva parte para la fecha de creación -->
+                        <div class="form-group">
+                            <label>Fecha de Creación:</label>
+                            <input type="text" name="fechaCreacion" th:value="${#dates.format(ordentrabajo.fechaCreacion, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" readonly>
+                        </div>					
+						<br>
+						<div class="box-footer">
+							<button class="btn btn-success">Guardar</button>
+
+						</div>
+					</form>
+
+				</div>
+				<br>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
