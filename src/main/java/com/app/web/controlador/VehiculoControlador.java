@@ -107,7 +107,7 @@ public class VehiculoControlador {
 		return "redirect:/vehiculos";
 	}
 
-	@DeleteMapping("/vehiculos/{id}")
+	@GetMapping("/vehiculos/{id}")
 	public String eliminarVehiculo(@PathVariable Long id) {
 		servicio.eliminarVehiculo(id);
 		return "redirect:/vehiculos";

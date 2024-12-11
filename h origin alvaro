@@ -1,0 +1,44 @@
+[33m447e920[m[33m ([m[1;36mHEAD -> [m[1;32malvaro[m[33m, [m[1;31morigin/alvaro[m[33m)[m Mejorando el index.html
+[33m461c7e9[m Merge branch 'main' of https://github.com/Rodrigit-hub/TPITallerPA
+[33mc068eb0[m Solucionando problemas con codacy
+[33m0965916[m Merge branch 'tiziCigne:main' into main
+[33m370abe1[m Agregadas las pruebas JUnit de Guardar-Buscar 1-Buscar mas de 1
+[33m0f910a8[m Agregadas las pruebas JUnit de Guardar-Buscar 1-Buscar mas de 1
+[33m4a3ea4a[m Agregando pruebas unitarias
+[33md5ec4d9[m Agregando pruebas unitarias
+[33me23dc46[m Papeleras agregadas
+[33mb7b95eb[m Papeleras agregadas
+[33m289fad1[m Arreglada papelera
+[33m199c3ec[m Arreglada papelera
+[33m3d23573[m Parte de estadisticas
+[33mec06ab5[m Parte de estadisticas
+[33ma195e56[m Generando Facturas en PDF
+[33m2a48ebc[m Generando Facturas en PDF
+[33m65628f0[m Factura terminada, Ordenes con + servicios, mas datos en la base
+[33m5173693[m Factura terminada, Ordenes con + servicios, mas datos en la base
+[33m5779753[m Agregado hasta factura
+[33m2090e09[m Agregado hasta factura
+[33m1b57bec[m Unimos todo, falta factura, impuesto, estadistica
+[33m060e017[m Unimos todo, falta factura, impuesto, estadistica
+[33m332dfa3[m falta agregar OrdenTrabajo Alvaro
+[33m70427fd[m falta agregar OrdenTrabajo Alvaro
+[33m9864761[m falta agregar OrdenTrabajo Alvaro
+[33m75378de[m falta agregar OrdenTrabajo Alvaro
+[33m1d51a40[m Ordenes no se eliminan, ahora hay papelera
+[33md184954[m Ordenes no se eliminan, ahora hay papelera
+[33m7ab8bbf[m Subiendo repositorio hasta cliente con fecha Orden
+[33m1e6fb3b[m Subiendo repositorio hasta cliente con fecha Orden
+[33me862486[m Subo mi repositorios con cambios en Vehiculos, OrdenTrabajo y Servicios
+[33m17ed785[m Subo mi repositorios con cambios en Vehiculos, OrdenTrabajo y Servicios
+[33mc04efa7[m Merge unrelated histories
+[33m7958593[m Merge unrelated histories
+[33m0f4be47[m Delete .gitignore
+[33m9e803c3[m Delete .gitignore
+[33m03425eb[m first comment
+[33m02f7a47[m Delete nbactions.xml
+[33m13d423f[m Delete nbactions.xml
+[33m0bb8493[m Delete pom.xml
+[33m6cf0c7d[m Delete pom.xml
+[33mccb4ae8[m Delete src directory
+[33m1c748c2[m Delete src directory
+[33ma91a3b5[m se agrega el proyecto
