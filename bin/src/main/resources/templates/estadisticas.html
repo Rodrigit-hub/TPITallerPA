@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Taller Mecánico</title>
+    <!-- Agrega aquí tus enlaces a hojas de estilo CSS si es necesario -->
+    <script src="/js/validaciones.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+		crossorigin="anonymous">
+	<!-- Estilos personalizados -->
+    <style>
+        /* Estilos personalizados */
+        .container-full {
+            background-color: #f0f0f0; /* Color de fondo */
+            padding: 20px; /* Espaciado interior */
+            text-align: center;
+            height: 100vh; /* Altura del 100% del viewport */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section-link {
+            border: 1px solid #ccc; /* Borde */
+            padding: 20px; /* Espaciado interior */
+            margin: 10px; /* Margen exterior */
+            border-radius: 10px; /* Bordes redondeados */
+            font-weight: bold; /* Texto en negrita */
+            font-size: 24px; /* Tamaño de fuente */
+            background-color: #fff; /* Color de fondo */
+            width: 90%; /* Ancho del 90% del contenedor */
+            text-align: center;
+            text-decoration: none; /* Sin subrayado */
+            display: block;
+        }
+
+        .section-link:hover {
+            background-color: #e0e0e0; /* Color de fondo al pasar el mouse */
+        }
+        
+        .welcome-text {
+            font-size: 36px; /* Tamaño de fuente más grande para el título de bienvenida */
+            margin-bottom: 20px; /* Margen inferior */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Gestor Taller Mecanico</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/vehiculos">Vehiculos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clientes">Clientes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/modelos">Modelos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/marcas">Marcas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/tecnico">Tecnicos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ordentrabajo">Orden De Trabajo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/servicios">Servicios</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <h1>Estadísticas de Servicios</h1>
+
+	<p th:text="${recuentoServicios}"></p>
+	
+    <canvas id="graficoTorta" width="400" height="400"></canvas>
+
+    <script>
+        // Obtener el recuento de servicios desde Thymeleaf
+        var recuentoServicios = /*[[${recuentoServicios}]]*/ {};
+
+        // Crear un array de etiquetas y datos para el gráfico de torta
+        var etiquetas = Object.keys(recuentoServicios);
+        var datos = Object.values(recuentoServicios);
+
+        // Crear el gráfico de torta
+        var ctx = document.getElementById('graficoTorta').getContext('2d');
+        var grafico = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: etiquetas,
+                datasets: [{
+                    data: datos,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        // Puedes agregar más colores según sea necesario
+                    ],
+                }]
+            },
+            options: {
+                // Personaliza opciones según tus necesidades
+            }
+        });
+    </script>
+
+</body>
+</html>
