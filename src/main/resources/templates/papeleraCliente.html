@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Registro de clientes</title>
+	<title>Papelera Cliente</title>
 	
 	<!-- Vincula el archivo JavaScript -->
 	<script src="/js/validaciones.js"></script>
@@ -56,11 +56,13 @@
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
 						<form action="/logout" method="post">
-							<input type="hidden" th:name="${_csrf.parameterName}"
-								th:value="${_csrf.token}" />
-							<button type="submit" class="nav-link"
-								style="border: none; background: none; cursor: pointer;">
-								Cerrar Sesión</button>
+						    <!-- Solo incluir el token si está disponible -->
+						    <div th:if="${_csrf != null}">
+						        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						    </div>
+						    <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">
+						        Cerrar Sesión
+						    </button>
 						</form>
 					</li>
 				</ul>

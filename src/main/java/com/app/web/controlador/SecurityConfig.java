@@ -20,10 +20,11 @@ public class SecurityConfig {
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
-    @Bean
+	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
+        		.csrf(csrf -> csrf.disable()) // Asegúrate de que CSRF esté habilitado// Desactiva CSRF (solo para pruebas, no en producción)
+        		.authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/login", "/register").permitAll() /* Rutas públicas */
                                 .anyRequest().authenticated() /* Todas las demás rutas requieren autenticación */
                 )

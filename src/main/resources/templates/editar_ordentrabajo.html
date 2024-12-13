@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Editar Ordenes de Trabajo</title> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
+	<title>Taller Mecanico</title> <!-- Cambio Vehiculos por Ordenes de Trabajo -->
 	<!-- Vincula el archivo JavaScript -->
 	<script src="/js/validaciones.js"></script>
 	<!-- CSS only -->
@@ -55,11 +55,13 @@
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">
 						<form action="/logout" method="post">
-							<input type="hidden" th:name="${_csrf.parameterName}"
-								th:value="${_csrf.token}" />
-							<button type="submit" class="nav-link"
-								style="border: none; background: none; cursor: pointer;">
-								Cerrar Sesión</button>
+						    <!-- Solo incluir el token si está disponible -->
+						    <div th:if="${_csrf != null}">
+						        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						    </div>
+						    <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">
+						        Cerrar Sesión
+						    </button>
 						</form>
 					</li>
 				</ul>
