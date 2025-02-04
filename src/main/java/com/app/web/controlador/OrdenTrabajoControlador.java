@@ -81,15 +81,27 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
     }
 
     @PostMapping("/ordentrabajo")
-    public String guardarOrdenTrabajo(@ModelAttribute("ordentrabajo") OrdenTrabajo ordentrabajo) { // Cambio vehiculo por ordentrabajo
+    public String guardarOrdenTrabajo(@ModelAttribute("ordentrabajo") OrdenTrabajo ordentrabajo) { 
         try {
+            // Obtener la fecha actual
+            Date fechaActual = new Date();
+
+            // Verificar que la fecha de creación no sea mayor a la fecha actual
+            if (ordentrabajo.getFechaCreacion().after(fechaActual)) {
+                throw new IllegalArgumentException("La fecha de creación no puede ser mayor a la fecha actual.");
+            }
+
+            // Guardar la orden de trabajo
             servicio.guardarOrdenTrabajo(ordentrabajo); 
         } catch (DataIntegrityViolationException e) {
             throw new DuplicatePatenteException("La orden ya existe.");
+        } catch (IllegalArgumentException e) {
+            // Si la fecha es incorrecta, mostrar un mensaje de error
+            return "redirect:/ordentrabajo/new?error=" + e.getMessage();
         }
         return "redirect:/ordentrabajo"; 
-
     }
+
 
     @GetMapping("/ordentrabajo/editar/{id}") 
     public String mostrarFormEditar(@PathVariable Long id, Model modelo) {
@@ -118,10 +130,12 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         
         // Actualiza los campos de la orden de trabajo existente con los nuevos valores
         ordentrabajoExistente.setServicios(ordentrabajo.getServicios());
+        ordentrabajoExistente.setFechaCierre(ordentrabajo.getFechaCierre()); // Copia la fecha de cierre
         
         servicio.actualizarOrdenTrabajo(ordentrabajoExistente); 
         return "redirect:/ordentrabajo"; 
     }
+
 
     @GetMapping("/ordentrabajo/{id}") 
     public String eliminarOrdenTrabajo(@PathVariable Long id) {
@@ -165,8 +179,6 @@ public class OrdenTrabajoControlador { // Cambio VehiculoControlador por OrdenTr
         model.addAttribute("factura", factura);
        
         
-        return "factura";
-    
+        return "factura";    
     }
-
 }

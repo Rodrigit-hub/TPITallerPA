@@ -32,21 +32,21 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
     
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "fecha_cierre")
+    private Date fechaCierre; // Nuevo campo para la fecha de cierre
+    
     @Column(name = "eliminado")
     private boolean eliminado;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "cliente_id")
     Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "vehiculo_id")
     Vehiculo vehiculo;
-/*
-    @ManyToOne
-    @JoinColumn(name = "servicio_id")
-    Servicio servicio;
-*/    
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
         name = "orden_trabajo_servicio",
@@ -68,32 +68,31 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     }
 
     public Set<Servicio> getServicios() {
-		return servicios;
-	}
+        return servicios;
+    }
 
-	public void setServicios(Set<Servicio> servicios) {
-		this.servicios = servicios;
-	}
+    public void setServicios(Set<Servicio> servicios) {
+        this.servicios = servicios;
+    }
 
-	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, Servicio servicio, tecnico tecnico) {
-		super();
-		this.cliente = cliente;
-		this.vehiculo = vehiculo;
-		this.tecnico = tecnico;
-		//this.servicio = servicio;
-		this.fechaCreacion = new Date(); // Establecer la fecha de creación al momento de la creación de la orden de trabajo
-	}
-	
-	public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, tecnico tecnico) {
-	    super();
-	    this.cliente = cliente;
-	    this.vehiculo = vehiculo;
-	    this.tecnico = tecnico;
-	    this.fechaCreacion = new Date();
-	    this.servicios = new HashSet<>(); // Inicializar la colección
-	}
+    public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, Servicio servicio, tecnico tecnico) {
+        super();
+        this.cliente = cliente;
+        this.vehiculo = vehiculo;
+        this.tecnico = tecnico;
+        this.fechaCreacion = new Date(); // Establecer la fecha de creación al momento de la creación de la orden de trabajo
+    }
+    
+    public OrdenTrabajo(Cliente cliente, Vehiculo vehiculo, tecnico tecnico) {
+        super();
+        this.cliente = cliente;
+        this.vehiculo = vehiculo;
+        this.tecnico = tecnico;
+        this.fechaCreacion = new Date();
+        this.servicios = new HashSet<>(); // Inicializar la colección
+    }
 
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -119,15 +118,6 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
         this.vehiculo = vehiculo;
     }
 
-    //public Servicio getServicio() {
-    //    return servicio;
-    //}
-
-    //public void setServicio(Servicio servicio) {
-    //    this.servicio = servicio;
-    //}
-    
-
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -135,7 +125,14 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
-    
+
+    public Date getFechaCierre() {
+        return fechaCierre;
+    }
+
+    public void setFechaCierre(Date fechaCierre) {
+        this.fechaCierre = fechaCierre;
+    }
 
     public boolean isEliminado() {
         return eliminado;
@@ -154,16 +151,16 @@ public class OrdenTrabajo { // Cambio Vehiculo por OrdenTrabajo
     }
     
     public tecnico getTecnico() {
-		return tecnico;
-	}
+        return tecnico;
+    }
 
-	public void setTecnico(tecnico tecnico) {
-		this.tecnico = tecnico;
-	}
+    public void setTecnico(tecnico tecnico) {
+        this.tecnico = tecnico;
+    }
 
-	@Override
-	public String toString() {
-		return "OrdenTrabajo [id=" + id + ", cliente=" + cliente
-				+ ", vehiculo=" + vehiculo + "]";
-	}
+    @Override
+    public String toString() {
+        return "OrdenTrabajo [id=" + id + ", cliente=" + cliente
+                + ", vehiculo=" + vehiculo + "]";
+    }
 }

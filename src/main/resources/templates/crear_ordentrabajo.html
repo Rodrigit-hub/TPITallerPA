@@ -44,7 +44,7 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/servicios">Servicios</a>
 					</li>
-					<li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Programación Avanzada</a>
+					<li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Programaci贸n Avanzada</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav ms-auto">
@@ -111,13 +111,14 @@
 							</select>
 						</div>-->
 
-						<!-- Nueva parte para la fecha de creación -->
+						<!-- Nueva parte para la fecha de creaci贸n -->
 
 
 						<div class="form-group">
 							<label>Fecha de Creación: </label>
 							<input type="date" name="fechaCreacion" th:field="*{fechaCreacion}" class="form-control"
-								placeholder="Ingrese la fecha de creacion:" required>
+								placeholder="Ingrese la fecha de creacion:" required
+								th:max="${#dates.format(fechaActual, 'yyyy-MM-dd')}">
 						</div>
 						<br>
 						<div class="form-group">

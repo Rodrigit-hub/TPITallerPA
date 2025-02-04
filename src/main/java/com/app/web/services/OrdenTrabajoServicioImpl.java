@@ -48,6 +48,14 @@ public class OrdenTrabajoServicioImpl implements OrdenTrabajoServicio { // Cambi
     public OrdenTrabajo actualizarOrdenTrabajo(OrdenTrabajo ordenTrabajo) { // Cambio Vehiculo por OrdenTrabajo
         return repositorio.save(ordenTrabajo);
     }
+    @Override
+    public void actualizarFechaCierre(Long id, Date nuevaFechaCierre) {
+        OrdenTrabajo ordenTrabajo = repositorio.findById(id).orElse(null);
+        if (ordenTrabajo != null) {
+            ordenTrabajo.setFechaCierre(nuevaFechaCierre);
+            repositorio.save(ordenTrabajo);
+        }
+    }
 
     @Override
     public void eliminarOrdenTrabajo(Long id) { // Cambio Vehiculo por OrdenTrabajo

@@ -14,7 +14,9 @@
             background-color: #f8f9fa;
         }
         .container-full {
+			background-color: #f0f0f0; /* Color de fondo */
             padding: 20px;
+            text-align: center;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -42,6 +44,29 @@
             width: 100%;
             height: 300px; /* Reducimos la altura del gráfico de barras */
         }
+         .section-link {
+            border: 1px solid #ccc; /* Borde */
+            padding: 20px; /* Espaciado interior */
+            margin: 10px; /* Margen exterior */
+            border-radius: 10px; /* Bordes redondeados */
+            font-weight: bold; /* Texto en negrita */
+            font-size: 24px; /* Tamaño de fuente */
+            background-color: #fff; /* Color de fondo */
+            width: 90%; /* Ancho del 90% del contenedor */
+            text-align: center;
+            text-decoration: none; /* Sin subrayado */
+            display: block;
+        }
+
+        .section-link:hover {
+            background-color: #e0e0e0; /* Color de fondo al pasar el mouse */
+        }
+        
+        .welcome-text {
+            font-size: 36px; /* Tamaño de fuente más grande para el título de bienvenida */
+            margin-bottom: 20px; /* Margen inferior */
+            text-align: center;
+           }
     </style>
 </head>
 <body>
@@ -113,6 +138,14 @@
         <div class="chart-container">
             <div id="graficoTecnicos"></div>
         </div>
+        <!-- Gráfico de órdenes por fecha -->
+		<div class="chart-container">
+			<div id="graficoOrdenesPorMes"></div>
+		</div>
+		<!-- GrÃ¡fico de barras con promedio de tiempo -->
+	    <div class="chart-container">
+	        <div id="graficoTiempo"></div>
+	    </div>
     </div>
 
     <script th:inline="javascript">
@@ -180,6 +213,86 @@
         };
 
         Plotly.newPlot('graficoTecnicos', dataTecnicos, layoutTecnicos);
+        
+        
+        var ordenesPorMes = /*[[${ordenesPorMes}]]*/{}; // Datos
+		var meses = Object.keys(ordenesPorMes);
+		var ordenes = Object.values(ordenesPorMes);
+
+		// Calcular el promedio
+		var promedioGeneral = ordenes.reduce((total, num) => total + num, 0) / ordenes.length;
+
+		// Generar una lista de colores diferentes (puedes personalizarla)
+		var colores = [
+		    'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 206, 86)', 
+		    'rgb(75, 192, 192)', 'rgb(153, 102, 255)', 'rgb(255, 159, 64)',
+		    'rgb(233, 30, 99)', 'rgb(0, 150, 136)', 'rgb(255, 87, 34)', 
+		    'rgb(63, 81, 181)', 'rgb(205, 220, 57)', 'rgb(121, 85, 72)'
+		];
+
+		// Configurar el gráfico con una línea de promedio
+		var data = [{
+		    x: meses,
+		    y: ordenes,
+		    type: 'bar',
+		    name: 'Órdenes por mes',
+		    marker: { color: colores.slice(0, meses.length) } // Aplica los colores a cada barra
+		}, {
+		    x: meses,
+		    y: new Array(meses.length).fill(promedioGeneral),
+		    type: 'scatter',
+		    mode: 'lines',
+		    name: 'Promedio mensual',
+		    line: {
+		        color: 'rgb(54, 162, 235)',
+		        dash: 'dash'
+		    }
+		}];
+
+		var layout = {
+		    title: 'Promedio órdenes por mes',
+		    height: 400,
+		    width: 900,
+		    margin: { t: 50, b: 50 },
+		    xaxis: { title: 'Meses' },
+		    yaxis: { title: 'Cantidad de órdenes' },
+		    showlegend: true
+		};
+
+		Plotly.newPlot('graficoOrdenesPorMes', data, layout);
+		
+		// Datos del gráfico de barras para el tiempo
+    var tiemposPorOrden = /*[[${tiemposPorOrden}]]*/ [];
+    var promedioTiempo = /*[[${promedioTiempo}]]*/ ;
+
+    var dataTiempo = [{
+        x: Array.from({length: tiemposPorOrden.length}, (_, i) => 'Orden ' + (i + 1)),
+        y: tiemposPorOrden,
+        type: 'bar',
+        name: 'Duración por Orden',
+        marker: { color: 'rgb(54, 162, 235)' }
+    }, {
+        x: Array.from({length: tiemposPorOrden.length}, (_, i) => 'Orden ' + (i + 1)),
+        y: Array(tiemposPorOrden.length).fill(promedioTiempo),
+        type: 'line',
+        name: 'Promedio',
+        line: { color: 'rgb(255, 99, 132)', dash: 'dot' }
+    }];
+
+    var layoutTiempo = {
+        title: 'Duración de las Órdenes de Trabajo',
+        height: 300,
+        width: 900,
+        margin: { t: 50, b: 50 },
+        xaxis: {
+            title: 'Órdenes de Trabajo',
+        },
+        yaxis: {
+            title: 'Días',
+        }
+    };
+
+    Plotly.newPlot('graficoTiempo', dataTiempo, layoutTiempo);
     </script>
 </body>
 </html>
